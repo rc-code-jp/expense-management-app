@@ -1,8 +1,8 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-import { ExpenseRegisterForm } from "../features/expenses/components/ExpenseRegisterForm";
+import { ExpenseList } from "../features/expenses/components/ExpenseList";
 import { db } from "@/database/db";
-import { expenseCategories } from "@/database/schema";
+import { expenses } from "@/database/schema";
 import { eq } from 'drizzle-orm';
 
 export default async function Page() {
@@ -14,12 +14,12 @@ export default async function Page() {
 
   const userId = session.user?.id!
 
-  const res = await db.select().from(expenseCategories).where(eq(expenseCategories.userId, userId))
+  const items = await db.select().from(expenses).where(eq(expenses.userId, userId))
 
   return (
     <div>
-      <h1>Register</h1>
-      <ExpenseRegisterForm categoryList={res}></ExpenseRegisterForm>
+      <h1>History</h1>
+      <ExpenseList items={items}></ExpenseList>
     </div>
   );
 }
