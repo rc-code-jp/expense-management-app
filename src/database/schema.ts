@@ -5,6 +5,8 @@ import {
   text,
   primaryKey,
   integer,
+  time,
+  date,
 } from "drizzle-orm/pg-core"
 import type { AdapterAccountType } from "next-auth/adapters"
  
@@ -27,7 +29,7 @@ export const accounts = pgTable(
     type: text("type").$type<AdapterAccountType>().notNull(),
     provider: text("provider").notNull(),
     providerAccountId: text("providerAccountId").notNull(),
-    refresh_token: text("refresh_token"),
+    refresh_token: text("refresh_token"), // next-authに合わせて一部SnakeCaseがある
     access_token: text("access_token"),
     expires_at: integer("expires_at"),
     token_type: text("token_type"),
@@ -83,4 +85,41 @@ export const authenticators = pgTable(
       columns: [authenticator.userId, authenticator.credentialID],
     }),
   })
+)
+
+// 支出
+export const expenses = pgTable(
+  "expenses",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    amount: integer("amount").notNull(),
+    categoryId: text("categoryId").notNull(),
+    note: text("note"),
+    date: date("date",),
+    time: time("time",),
+    createdAt: timestamp("createdAt", { mode: "date" }).$defaultFn(() => new Date()),
+    updatedAt: timestamp("updatedAt", { mode: "date" }).$defaultFn(() => new Date()),
+  },
+)
+
+// 支出カテゴリー
+export const expenseCategories = pgTable(
+  "expenseCategories",
+  {
+    id: text("id")
+      .primaryKey()
+      .$defaultFn(() => crypto.randomUUID()),
+    userId: text("userId")
+      .notNull()
+      .references(() => users.id, { onDelete: "cascade" }),
+    name: text("name").notNull(),
+    sort: integer("sort").notNull(),
+    createdAt: timestamp("createdAt", { mode: "date" }).$defaultFn(() => new Date()),
+    updatedAt: timestamp("updatedAt", { mode: "date" }).$defaultFn(() => new Date()),
+  },
 )
