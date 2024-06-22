@@ -27,7 +27,7 @@ export default async function Page() {
 			<h1>History</h1>
 			<ExpenseList items={items} />
 			<div>
-				<Link href="/register">登録</Link>
+				<Link href="/expenses/register">登録</Link>
 			</div>
 		</div>
 	);

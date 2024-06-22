@@ -6,13 +6,18 @@ import { redirect } from "next/navigation";
 
 export const saveExpenseCategory = async (data: FormData) => {
 	"use server";
+
+	const session = await auth();
+	if (!session) {
+		return { message: "Not Authenticated" };
+	}
+
 	const body = {
-		id: data.get("id") as string,
+		id: data.get("id") as string | null,
 		name: data.get("name") as string,
 		color: data.get("color") as string,
 	};
 
-	const session = await auth();
 	const userId = session?.user?.id ?? "";
 
 	if (body.id) {

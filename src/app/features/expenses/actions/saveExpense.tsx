@@ -5,7 +5,14 @@ import { redirect } from "next/navigation";
 
 export const saveExpense = async (data: FormData) => {
 	"use server";
+
+	const session = await auth();
+	if (!session) {
+		return { message: "Not Authenticated" };
+	}
+
 	const body = {
+		id: data.get("id") as string | null,
 		amount: Number(data.get("amount")),
 		categoryId: data.get("categoryId") as string,
 		date: data.get("date") as string,
@@ -26,7 +33,6 @@ export const saveExpense = async (data: FormData) => {
 		return { message: "カテゴリーを選択してください" };
 	}
 
-	const session = await auth();
 	const userId = session?.user?.id ?? "";
 
 	await db.insert(expenses).values({
@@ -38,5 +44,5 @@ export const saveExpense = async (data: FormData) => {
 		note: body.note,
 	});
 
-	redirect("/histories");
+	redirect("/expenses");
 };
