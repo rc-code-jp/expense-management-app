@@ -5,15 +5,11 @@ import React from "react";
 import { redirect } from "next/navigation";
 import { signIn } from "next-auth/react";
 
-const LoginPage = () => {
+export default function Page ()  {
   const handleLogin = (provider: string) => async (event: React.MouseEvent) => {
     event.preventDefault();
     const result = await signIn(provider);
-
-    // ログインに成功したらTOPページにリダイレクト
-    if (result) {
-      redirect("/");
-    }
+    console.dir(result);
   };
 
   return (
@@ -30,5 +26,3 @@ const LoginPage = () => {
     </div>
   );
 };
-
-export default LoginPage;
