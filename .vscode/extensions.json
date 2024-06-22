@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "github.copilot",
+    "editorconfig.editorconfig",
+    "wmaurer.change-case",
+    "streetsidesoftware.code-spell-checker",
+    "mosapride.zenkaku",
+    "biomejs.biome"
+  ],
+  "unwantedRecommendations": []
+}
