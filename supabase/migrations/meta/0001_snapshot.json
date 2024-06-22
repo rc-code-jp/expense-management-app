@@ -1,6 +1,6 @@
 {
-  "id": "43478a7e-251f-46d5-9d72-d63acbc7ffc6",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "eaa99e47-bbd5-4e5a-bce6-0eebcc93d5b6",
+  "prevId": "43478a7e-251f-46d5-9d72-d63acbc7ffc6",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -212,6 +212,12 @@
           "primaryKey": false,
           "notNull": true
         },
+        "color": {
+          "name": "color",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
         "sort": {
           "name": "sort",
           "type": "integer",
@@ -278,21 +284,21 @@
           "primaryKey": false,
           "notNull": true
         },
-        "note": {
-          "name": "note",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
         "date": {
           "name": "date",
           "type": "date",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "time": {
           "name": "time",
           "type": "time",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "note": {
+          "name": "note",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
