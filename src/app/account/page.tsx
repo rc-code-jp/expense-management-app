@@ -12,7 +12,7 @@ export default function Page() {
 			<p>{JSON.stringify(session, null, 2)}</p>
 			<div>
 				<div>
-					<Link href="/histories">履歴</Link>
+					<Link href="/expenses">履歴</Link>
 				</div>
 				<div>
 					<Link href="/register">登録</Link>

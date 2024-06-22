@@ -4,7 +4,7 @@ import { expenseCategories } from "@/database/schema";
 import { eq } from "drizzle-orm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ExpenseRegisterForm } from "../features/expenses/components/ExpenseRegisterForm";
+import { ExpenseRegisterForm } from "../../features/expenses/components/ExpenseRegisterForm";
 
 export default async function Page() {
 	const session = await auth();
@@ -25,7 +25,7 @@ export default async function Page() {
 			<h1>Register</h1>
 			<ExpenseRegisterForm categoryList={res} />
 			<div>
-				<Link href="/histories">戻る</Link>
+				<Link href="/expenses">戻る</Link>
 			</div>
 		</div>
 	);
