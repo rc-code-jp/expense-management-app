@@ -8,8 +8,8 @@ export function ExpenseList({
   return (
     <ul>
       {items.map((item) => (
-        <li key={item.id} style={{marginTop: 10}}>
-          <Link prefetch={false} href={`/histories/${item.id}`}>
+        <li key={item.expenses.id} style={{marginTop: 10}}>
+          <Link prefetch={false} href={`/histories/${item.expenses.id}`}>
             {JSON.stringify(item)}
           </Link>
         </li>

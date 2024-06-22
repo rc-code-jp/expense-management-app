@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { CategoryList } from "../features/expenses/components/CategoryList";
 import { db } from "@/database/db";
 import { expenseCategories } from "@/database/schema";
-import { eq } from 'drizzle-orm';
+import { eq, asc, desc } from 'drizzle-orm';
 import Link from "next/link";
 
 export default async function Page() {
@@ -15,7 +15,11 @@ export default async function Page() {
 
   const userId = session.user?.id!
 
-  const items = await db.select().from(expenseCategories).where(eq(expenseCategories.userId, userId))
+  const items = await db
+    .select()
+    .from(expenseCategories)
+    .where(eq(expenseCategories.userId, userId))
+    .orderBy(asc(expenseCategories.sort), desc(expenseCategories.createdAt))
 
   return (
     <div>

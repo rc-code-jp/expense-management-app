@@ -1,4 +1,4 @@
-import { createExpenseCategory } from "../../actions/createExpenseCategory";
+import { saveExpenseCategory } from "../../actions/saveExpenseCategory";
 
 export function CategoryForm({
   item
@@ -6,8 +6,9 @@ export function CategoryForm({
   item?: any;
 }) {
   return (
-    <form action={createExpenseCategory}>
+    <form action={saveExpenseCategory}>
       <div>
+        <input type="hidden" name="id" defaultValue={item?.id} />
         <div>
           <label><span>カテゴリー名</span><input type="text" name="name" defaultValue={item?.name}/></label>
         </div>

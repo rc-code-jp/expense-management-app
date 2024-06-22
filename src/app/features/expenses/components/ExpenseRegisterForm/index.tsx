@@ -1,4 +1,4 @@
-import { createExpense } from "../../actions/createExpense";
+import { saveExpense } from "../../actions/saveExpense";
 
 export function ExpenseRegisterForm({
   categoryList
@@ -6,13 +6,10 @@ export function ExpenseRegisterForm({
   categoryList: any[]
 }) {
   return (
-    <form action={createExpense}>
+    <form action={saveExpense}>
       <div>
         <div>
           <label><span>金額</span><input type="text" name="amount" /></label>
-        </div>
-        <div>
-          <label><span>日付</span><input type="date" name="date" /></label>
         </div>
         <div>
           <label>
@@ -25,6 +22,17 @@ export function ExpenseRegisterForm({
               ))}
             </select>
           </label>
+        </div>
+        <div>
+          <label><span>日付</span><input type="date" name="date" /></label>
+        </div>
+        <div>
+          <label><span>時刻</span><input type="time" name="time" /></label>
+        </div>
+        <div>
+          <label><span>メモ</span><textarea name="note" style={{
+            resize: 'vertical',
+          }} /></label>
         </div>
         <div>
           <button type="submit">

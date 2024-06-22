@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { db } from "@/database/db";
-import { expenses } from "@/database/schema";
+import { expenseCategories, expenses } from "@/database/schema";
 import { and, eq } from 'drizzle-orm';
 
 export default async function Page({
@@ -19,12 +19,18 @@ export default async function Page({
 
   const userId = session.user?.id!
 
-  const item = await db.select().from(expenses).where(
-    and(
-      eq(expenses.userId, userId),
-      eq(expenses.id, params.expenseId)
+  const res = await db
+    .select()
+    .from(expenses)
+    .innerJoin(expenseCategories, eq(expenses.categoryId, expenseCategories.id))
+    .where(
+      and(
+        eq(expenses.userId, userId),
+        eq(expenses.id, params.expenseId)
+      )
     )
-  )
+
+  const item = res[0]
 
   return (
     <div>
