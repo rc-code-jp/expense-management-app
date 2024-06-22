@@ -1,46 +1,49 @@
 import { auth } from "@/auth";
-import { redirect } from "next/navigation";
-import { CategoryForm } from "../../features/expenses/components/CategoryForm";
-import Link from "next/link";
+import { db } from "@/database/db";
 import { expenseCategories } from "@/database/schema";
 import { and, eq } from "drizzle-orm";
-import { db } from "@/database/db";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import { CategoryForm } from "../../features/expenses/components/CategoryForm";
 
 export default async function Page({
-  params
+	params,
 }: {
-  params: {
-    categoryId: string;
-  }
+	params: {
+		categoryId: string;
+	};
 }) {
-  const session = await auth()
-  if (!session) {
-    // not authenticated
-    return redirect('/')
-  }
+	const session = await auth();
+	if (!session) {
+		// not authenticated
+		return redirect("/");
+	}
 
-  const isCreateMode = params.categoryId === 'create';
+	const isCreateMode = params.categoryId === "create";
 
-  const userId = session.user?.id!
+	const userId = session.user?.id ?? "";
 
-  let item = null
-  if (!isCreateMode) {
-    const res = await db.select().from(expenseCategories).where(
-      and(
-        eq(expenseCategories.userId, userId),
-        eq(expenseCategories.id, params.categoryId)
-      )
-    )
-    item = res[0]
-  }
+	let item = null;
+	if (!isCreateMode) {
+		const res = await db
+			.select()
+			.from(expenseCategories)
+			.where(
+				and(
+					eq(expenseCategories.userId, userId),
+					eq(expenseCategories.id, params.categoryId),
+				),
+			);
+		item = res[0];
+	}
 
-  return (
-    <div>
-      <h1>Categories</h1>
-      <CategoryForm item={item}></CategoryForm>
-      <div>
-        <Link href="/categories">戻る</Link>
-      </div>
-    </div>
-  );
+	return (
+		<div>
+			<h1>Categories</h1>
+			<CategoryForm item={item} />
+			<div>
+				<Link href="/categories">戻る</Link>
+			</div>
+		</div>
+	);
 }
