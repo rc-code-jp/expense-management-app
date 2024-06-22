@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS "expenseCategories" (
 	"id" text PRIMARY KEY NOT NULL,
 	"userId" text NOT NULL,
 	"name" text NOT NULL,
+	"color" text,
 	"sort" integer NOT NULL,
 	"createdAt" timestamp,
 	"updatedAt" timestamp
@@ -40,9 +41,9 @@ CREATE TABLE IF NOT EXISTS "expenses" (
 	"userId" text NOT NULL,
 	"amount" integer NOT NULL,
 	"categoryId" text NOT NULL,
-	"note" text,
-	"date" date,
+	"date" date NOT NULL,
 	"time" time,
+	"note" text,
 	"createdAt" timestamp,
 	"updatedAt" timestamp
 );

@@ -8,16 +8,24 @@
 pnpm install
 ```
 
+### ローカルのデータベースを起動
+
+```
+docker-compose up -d
+```
+
+[PgAdmin](http://localhost:8080)
+
 ### Schema.tsからマイグレーションファイルを作成
 
 ```
-npx drizzle-kit generate
+pnpm drizzle-kit generate
 ```
 
 ### マイグレーション（DBリセット）
 
 ```
-npm run supabase db reset
+pnpm run supabase db reset
 ```
 
 ### supabase
