@@ -2,7 +2,7 @@ pre-commit:
   commands:
     check:
       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,tsx,json}"
-      run: pnpm biome check --apply --no-errors-on-unmatched --files-ignore-unknown=true ./src && git update-index --again
+      run: pnpm biome check --write --no-errors-on-unmatched --files-ignore-unknown=true ./src && git update-index --again
 
 pre-push:
   commands:

@@ -1,11 +1,21 @@
 # expense-management-app
 
+## ライブラリ
+
+- [Next.js App Router](https://nextjs.org/docs/app)
+- [DaisyUI](https://daisyui.com/components/button/)
+- [Tailwind](https://tailwindcss.com/)
+
 ## コマンド
 
 ### 初期化
 
 ```
 pnpm install
+```
+
+```
+cp ./env/.env.example .env.local
 ```
 
 ### ローカルのデータベースを起動
@@ -22,18 +32,8 @@ docker-compose up -d
 pnpm drizzle-kit generate
 ```
 
-### マイグレーション（DBリセット）
+### マイグレーション
 
 ```
-pnpm run supabase db reset
-```
-
-### supabase
-
-```
-pnpm run supabase start
-```
-
-```
-pnpm run supabase stop
+pnpm drizzle-kit migrate
 ```

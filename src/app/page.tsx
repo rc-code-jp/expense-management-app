@@ -1,9 +1,13 @@
-import Link from "next/link";
+import { auth } from "@/auth";
+import { redirect } from "next/navigation";
 
-export default function Page() {
-	return (
-		<div>
-			<Link href="/auth/login">ログイン</Link>
-		</div>
-	);
+// このページは使用しない
+// 未ログインの場合はログインページにリダイレクト
+// ログイン済みの場合はexpensesページにリダイレクト
+export default async function Page() {
+	const session = await auth();
+	if (!session) {
+		return redirect("/auth/login");
+	}
+	redirect("/expenses");
 }

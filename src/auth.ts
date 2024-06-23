@@ -30,4 +30,9 @@ export const { handlers, auth } = NextAuth({
 			return session;
 		},
 	},
+	pages: {
+		signIn: "/auth/login",
+		signOut: "/auth/login",
+		error: "/auth/login",
+	},
 });
