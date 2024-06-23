@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { PageTitle } from "@/components/layout/PageTitle";
 import { db } from "@/database/db";
 import { expenseCategories } from "@/database/schema";
 import { CategoryForm } from "@/features/expenses/components/CategoryForm";
@@ -39,7 +40,7 @@ export default async function Page({
 
 	return (
 		<div>
-			<h1>Categories</h1>
+			<PageTitle>Category</PageTitle>
 			<CategoryForm item={item} />
 			<div>
 				<Link href="/categories">戻る</Link>

@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { PageTitle } from "@/components/layout/PageTitle";
 import { db } from "@/database/db";
 import { expenseCategories } from "@/database/schema";
 import { CategoryList } from "@/features/expenses/components/CategoryList";
@@ -22,11 +23,8 @@ export default async function Page() {
 
 	return (
 		<div>
-			<h1>Categories</h1>
+			<PageTitle>Category</PageTitle>
 			<CategoryList items={items} />
-			<div>
-				<Link href="/categories/create">新規登録</Link>
-			</div>
 		</div>
 	);
 }

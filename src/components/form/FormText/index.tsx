@@ -7,7 +7,7 @@ export function FormText({
 }: {
 	label?: string;
 	name: string;
-	defaultValue?: string;
+	defaultValue?: string | number;
 	placeholder?: string;
 	required?: boolean;
 }) {
