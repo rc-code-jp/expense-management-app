@@ -1,16 +1,14 @@
-import { ExpenseList } from "@/app/features/expenses/components/ExpenseList";
 import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenseCategories, expenses } from "@/database/schema";
+import { ExpenseList } from "@/features/expenses/components/ExpenseList";
 import { desc, eq } from "drizzle-orm";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function Page() {
 	const session = await auth();
 	if (!session) {
-		// not authenticated
-		return redirect("/");
+		return redirect("/auth/login");
 	}
 
 	const userId = session.user?.id ?? "";
@@ -26,9 +24,6 @@ export default async function Page() {
 		<div>
 			<h1>History</h1>
 			<ExpenseList items={items} />
-			<div>
-				<Link href="/expenses/register">登録</Link>
-			</div>
 		</div>
 	);
 }

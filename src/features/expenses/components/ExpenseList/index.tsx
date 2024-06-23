@@ -1,5 +1,5 @@
-import { deleteExpense } from "@/app/features/expenses/actions/deleteExpense";
 import type { expenseCategories, expenses } from "@/database/schema";
+import { deleteExpense } from "@/features/expenses/actions/deleteExpense";
 import Link from "next/link";
 
 type Item = {
@@ -16,13 +16,24 @@ export function ExpenseList({
 		<ul>
 			{items.map((item) => (
 				<li key={item.expenses.id} style={{ marginTop: 10 }}>
-					<div>
-						<Link prefetch={false} href={`/expenses/${item.expenses.id}`}>
-							{JSON.stringify(item)}
+					<div className="relative size-full">
+						<Link
+							prefetch={false}
+							href={`/expenses/${item.expenses.id}`}
+							className="shadow-md"
+						>
+							<p>{item.expenses.date}</p>
+							<p>{item.expenseCategories.name}</p>
+							<p>{item.expenses.amount}</p>
 						</Link>
-						<form action={deleteExpense}>
+						<form
+							action={deleteExpense}
+							className="-translate-y-1/2 absolute top-1/2 right-2"
+						>
 							<input type="hidden" name="id" defaultValue={item.expenses.id} />
-							<button type="submit">削除</button>
+							<button type="submit" className="btn">
+								削除
+							</button>
 						</form>
 					</div>
 				</li>

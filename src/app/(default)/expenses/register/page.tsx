@@ -1,7 +1,7 @@
-import { ExpenseRegisterForm } from "@/app/features/expenses/components/ExpenseRegisterForm";
 import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenseCategories } from "@/database/schema";
+import { ExpenseRegisterForm } from "@/features/expenses/components/ExpenseRegisterForm";
 import { eq } from "drizzle-orm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -9,8 +9,7 @@ import { redirect } from "next/navigation";
 export default async function Page() {
 	const session = await auth();
 	if (!session) {
-		// not authenticated
-		return redirect("/");
+		return redirect("/auth/login");
 	}
 
 	const userId = session.user?.id ?? "";
@@ -24,9 +23,6 @@ export default async function Page() {
 		<div>
 			<h1>Register</h1>
 			<ExpenseRegisterForm categoryList={res} />
-			<div>
-				<Link href="/expenses">戻る</Link>
-			</div>
 		</div>
 	);
 }

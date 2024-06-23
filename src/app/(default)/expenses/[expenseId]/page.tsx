@@ -13,8 +13,7 @@ export default async function Page({
 }) {
 	const session = await auth();
 	if (!session) {
-		// not authenticated
-		return redirect("/");
+		return redirect("/auth/login");
 	}
 
 	const userId = session.user?.id ?? "";

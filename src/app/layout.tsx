@@ -18,7 +18,9 @@ export default function RootLayout({
 	return (
 		<html lang="ja">
 			<body className={inter.className}>
-				<NextAuthProvider>{children}</NextAuthProvider>
+				<div className="mx-auto md:w-[1024px]">
+					<NextAuthProvider>{children}</NextAuthProvider>
+				</div>
 			</body>
 		</html>
 	);

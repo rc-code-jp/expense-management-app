@@ -1,7 +1,7 @@
-import { CategoryList } from "@/app/features/expenses/components/CategoryList";
 import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenseCategories } from "@/database/schema";
+import { CategoryList } from "@/features/expenses/components/CategoryList";
 import { asc, desc, eq } from "drizzle-orm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -9,8 +9,7 @@ import { redirect } from "next/navigation";
 export default async function Page() {
 	const session = await auth();
 	if (!session) {
-		// not authenticated
-		return redirect("/");
+		return redirect("/auth/login");
 	}
 
 	const userId = session.user?.id ?? "";

@@ -1,5 +1,11 @@
 # expense-management-app
 
+## ライブラリ
+
+- [Next.js App Router](https://nextjs.org/docs/app)
+- [DaisyUI](https://daisyui.com/components/button/)
+- [Tailwind](https://tailwindcss.com/)
+
 ## コマンド
 
 ### 初期化

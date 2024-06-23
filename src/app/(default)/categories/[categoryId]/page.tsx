@@ -1,7 +1,7 @@
-import { CategoryForm } from "@/app/features/expenses/components/CategoryForm";
 import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenseCategories } from "@/database/schema";
+import { CategoryForm } from "@/features/expenses/components/CategoryForm";
 import { and, eq } from "drizzle-orm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -15,8 +15,7 @@ export default async function Page({
 }) {
 	const session = await auth();
 	if (!session) {
-		// not authenticated
-		return redirect("/");
+		return redirect("/auth/login");
 	}
 
 	const isCreateMode = params.categoryId === "create";
