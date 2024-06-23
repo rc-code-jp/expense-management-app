@@ -8,6 +8,10 @@
 pnpm install
 ```
 
+```
+cp ./env/.env.example .env.local
+```
+
 ### ローカルのデータベースを起動
 
 ```
