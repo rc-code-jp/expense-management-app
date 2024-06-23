@@ -6,6 +6,7 @@ import { FormTextarea } from "@/components/form/FormTextarea";
 import { FormTime } from "@/components/form/FormTime";
 import type { expenseCategories } from "@/database/schema";
 import { saveExpense } from "@/features/expenses/actions/saveExpense";
+import { dateFns } from "@/lib/dateFns";
 
 type CategoryItem = typeof expenseCategories.$inferSelect;
 
@@ -14,6 +15,11 @@ export function ExpenseRegisterForm({
 }: {
 	categoryList: CategoryItem[];
 }) {
+	// 現在の日付を取得
+	const now = new Date();
+	const nowDateString = dateFns.format(now, "yyyy-MM-dd");
+	const nowTimeString = dateFns.format(now, "HH:mm");
+
 	return (
 		<form action={saveExpense}>
 			<div>
@@ -31,10 +37,15 @@ export function ExpenseRegisterForm({
 				/>
 			</div>
 			<div>
-				<FormDate name="date" label="日付" defaultValue="" required />
+				<FormDate
+					name="date"
+					label="日付"
+					defaultValue={nowDateString}
+					required
+				/>
 			</div>
 			<div>
-				<FormTime name="time" label="時刻" defaultValue="" />
+				<FormTime name="time" label="時刻" defaultValue={nowTimeString} />
 			</div>
 			<div>
 				<FormTextarea name="note" label="メモ" defaultValue="" />

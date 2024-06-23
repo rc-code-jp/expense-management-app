@@ -56,6 +56,11 @@ export function AppBar({
 							</Link>
 						</li>
 						<li>
+							<Link href="/report" onClick={handleClickLink}>
+								Report
+							</Link>
+						</li>
+						<li>
 							<Link href="/account" onClick={handleClickLink}>
 								Account
 							</Link>
