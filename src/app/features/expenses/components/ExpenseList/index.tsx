@@ -1,6 +1,6 @@
+import { deleteExpense } from "@/app/features/expenses/actions/deleteExpense";
 import type { expenseCategories, expenses } from "@/database/schema";
 import Link from "next/link";
-import { deleteExpense } from "../../actions/deleteExpense";
 
 type Item = {
 	expenses: typeof expenses.$inferSelect;

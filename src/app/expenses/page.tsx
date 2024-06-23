@@ -1,10 +1,10 @@
+import { ExpenseList } from "@/app/features/expenses/components/ExpenseList";
 import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenseCategories, expenses } from "@/database/schema";
 import { desc, eq } from "drizzle-orm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ExpenseList } from "../features/expenses/components/ExpenseList";
 
 export default async function Page() {
 	const session = await auth();

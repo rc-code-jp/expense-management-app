@@ -1,10 +1,10 @@
+import { CategoryList } from "@/app/features/expenses/components/CategoryList";
 import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenseCategories } from "@/database/schema";
 import { asc, desc, eq } from "drizzle-orm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { CategoryList } from "../features/expenses/components/CategoryList";
 
 export default async function Page() {
 	const session = await auth();

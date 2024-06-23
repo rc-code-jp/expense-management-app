@@ -1,5 +1,5 @@
-import type { expenseCategories, expenses } from "@/database/schema";
-import { saveExpenseCategory } from "../../actions/saveExpenseCategory";
+import { saveExpenseCategory } from "@/app/features/expenses/actions/saveExpenseCategory";
+import type { expenseCategories } from "@/database/schema";
 
 type Item = typeof expenseCategories.$inferSelect;
 

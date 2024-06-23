@@ -1,10 +1,10 @@
+import { ExpenseRegisterForm } from "@/app/features/expenses/components/ExpenseRegisterForm";
 import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenseCategories } from "@/database/schema";
 import { eq } from "drizzle-orm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { ExpenseRegisterForm } from "../../features/expenses/components/ExpenseRegisterForm";
 
 export default async function Page() {
 	const session = await auth();

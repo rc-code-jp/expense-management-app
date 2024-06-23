@@ -1,10 +1,10 @@
+import { CategoryForm } from "@/app/features/expenses/components/CategoryForm";
 import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenseCategories } from "@/database/schema";
 import { and, eq } from "drizzle-orm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { CategoryForm } from "../../features/expenses/components/CategoryForm";
 
 export default async function Page({
 	params,
@@ -23,7 +23,8 @@ export default async function Page({
 
 	const userId = session.user?.id ?? "";
 
-	let item = null;
+	let item: typeof expenseCategories.$inferSelect | undefined;
+
 	if (!isCreateMode) {
 		const res = await db
 			.select()

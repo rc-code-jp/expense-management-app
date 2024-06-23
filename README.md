@@ -22,18 +22,8 @@ docker-compose up -d
 pnpm drizzle-kit generate
 ```
 
-### マイグレーション（DBリセット）
+### マイグレーション
 
 ```
-pnpm run supabase db reset
-```
-
-### supabase
-
-```
-pnpm run supabase start
-```
-
-```
-pnpm run supabase stop
+pnpm drizzle-kit migrate
 ```
