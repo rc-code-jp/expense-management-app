@@ -13,11 +13,20 @@ export function CategoryList({
 		<ul>
 			{items.map((item) => (
 				<li key={item.id} style={{ marginTop: 10 }}>
-					<div>
+					<div className="relative size-full">
 						<Link prefetch={false} href={`/categories/${item.id}`}>
-							{JSON.stringify(item)}
+							<p
+								style={{
+									color: item.color ?? "black",
+								}}
+							>
+								{item.name}
+							</p>
 						</Link>
-						<form action={deleteExpenseCategory}>
+						<form
+							action={deleteExpenseCategory}
+							className="-translate-y-1/2 absolute top-1/2 right-2"
+						>
 							<input type="hidden" name="id" defaultValue={item.id} />
 							<button type="submit">削除</button>
 						</form>

@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { PageTitle } from "@/components/layout/PageTitle";
 import { db } from "@/database/db";
 import { expenseCategories, expenses } from "@/database/schema";
 import { ExpenseList } from "@/features/expenses/components/ExpenseList";
@@ -22,7 +23,7 @@ export default async function Page() {
 
 	return (
 		<div>
-			<h1>History</h1>
+			<PageTitle>History</PageTitle>
 			<ExpenseList items={items} />
 		</div>
 	);
