@@ -4,7 +4,6 @@ import { db } from "@/database/db";
 import { expenseCategories } from "@/database/schema";
 import { CategoryList } from "@/features/expenses/components/CategoryList";
 import { asc, desc, eq } from "drizzle-orm";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function Page() {
