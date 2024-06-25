@@ -10,6 +10,5 @@ export default defineConfig({
 	dialect: "postgresql",
 	dbCredentials: {
 		...poolConfig,
-		// url: process.env.DATABASE_URL ?? "",
 	},
 });

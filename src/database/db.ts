@@ -6,12 +6,12 @@ import { Pool } from "pg";
 // });
 
 export const poolConfig = {
-	host: "localhost",
-	port: 5432,
-	user: "user",
-	password: "password",
-	database: "expense-management-app",
-	ssl: false,
+	host: process.env.DB_HOST ?? "",
+	port: Number(process.env.DB_PORT),
+	user: process.env.DB_USER ?? "",
+	password: process.env.DB_PASSWORD ?? "",
+	database: process.env.DB_NAME ?? "",
+	ssl: process.env.DB_SSL === "true",
 };
 
 // or
