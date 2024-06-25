@@ -1,12 +1,16 @@
+"use server";
+
 import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenseCategories } from "@/database/schema";
+import type { FormActionState } from "@/features/expenses/actionState/formActionState";
 import { and, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
-export const saveExpenseCategory = async (data: FormData) => {
-	"use server";
-
+export async function saveExpenseCategory(
+	_: FormActionState,
+	data: FormData,
+): Promise<FormActionState> {
 	const session = await auth();
 	if (!session) {
 		return { message: "Not Authenticated" };
@@ -17,6 +21,10 @@ export const saveExpenseCategory = async (data: FormData) => {
 		name: data.get("name") as string,
 		color: data.get("color") as string,
 	};
+
+	if (!body.name) {
+		return { message: "Please enter the name" };
+	}
 
 	const userId = session?.user?.id ?? "";
 
@@ -44,4 +52,4 @@ export const saveExpenseCategory = async (data: FormData) => {
 	}
 
 	redirect("/categories");
-};
+}

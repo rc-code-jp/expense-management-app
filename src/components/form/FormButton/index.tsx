@@ -7,7 +7,7 @@ export function FormButton({
 }) {
 	return (
 		<div className="mb-2 flex justify-center">
-			<button type={type} className="btn btn-wide">
+			<button type={type} className="btn btn-wide shadow-md">
 				{children}
 			</button>
 		</div>

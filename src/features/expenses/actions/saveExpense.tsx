@@ -1,11 +1,15 @@
+"use server";
+
 import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenses } from "@/database/schema";
+import type { FormActionState } from "@/features/expenses/actionState/formActionState";
 import { redirect } from "next/navigation";
 
-export const saveExpense = async (data: FormData) => {
-	"use server";
-
+export async function saveExpense(
+	_: FormActionState,
+	data: FormData,
+): Promise<FormActionState> {
 	const session = await auth();
 	if (!session) {
 		return { message: "Not Authenticated" };
@@ -22,15 +26,15 @@ export const saveExpense = async (data: FormData) => {
 
 	// 簡易的なバリデーション（zodなどでやるのがベスト）
 	if (Number.isNaN(body.amount) || body.amount <= 0) {
-		return { message: "金額は0以上で入力してください" };
+		return { message: "Please enter an amount greater than or equal to 0" };
 	}
 
 	if (!body.date) {
-		return { message: "日付を入力してください" };
+		return { message: "Please enter the date" };
 	}
 
 	if (!body.categoryId) {
-		return { message: "カテゴリーを選択してください" };
+		return { message: "Choose a category" };
 	}
 
 	const userId = session?.user?.id ?? "";
@@ -45,4 +49,4 @@ export const saveExpense = async (data: FormData) => {
 	});
 
 	redirect("/expenses");
-};
+}
