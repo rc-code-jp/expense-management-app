@@ -1,6 +1,10 @@
+"use client";
+
 import type { expenseCategories } from "@/database/schema";
+import { formActionState } from "@/features/expenses/actionState/formActionState";
 import { deleteExpenseCategory } from "@/features/expenses/actions/deleteExpenseCaterogy";
 import Link from "next/link";
+import { useFormState } from "react-dom";
 
 type Item = typeof expenseCategories.$inferSelect;
 
@@ -9,6 +13,11 @@ export function CategoryList({
 }: {
 	items: Item[];
 }) {
+	const [_formState, formDispatch] = useFormState(
+		deleteExpenseCategory,
+		formActionState,
+	);
+
 	return (
 		<ul>
 			{items.map((item) => (
@@ -24,7 +33,7 @@ export function CategoryList({
 							</p>
 						</Link>
 						<form
-							action={deleteExpenseCategory}
+							action={formDispatch}
 							className="-translate-y-1/2 absolute top-1/2 right-2"
 						>
 							<input type="hidden" name="id" defaultValue={item.id} />
