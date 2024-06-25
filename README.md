@@ -11,7 +11,7 @@
 ### 初期化
 
 ```
-pnpm install
+npm install
 ```
 
 ```
@@ -29,11 +29,11 @@ docker-compose up -d
 ### Schema.tsからマイグレーションファイルを作成
 
 ```
-pnpm drizzle-kit generate
+npm drizzle-kit generate
 ```
 
 ### マイグレーション
 
 ```
-pnpm drizzle-kit migrate
+npm drizzle-kit migrate
 ```
