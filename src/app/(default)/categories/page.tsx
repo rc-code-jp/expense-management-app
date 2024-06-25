@@ -4,6 +4,7 @@ import { db } from "@/database/db";
 import { expenseCategories } from "@/database/schema";
 import { CategoryList } from "@/features/expenses/components/CategoryList";
 import { asc, desc, eq } from "drizzle-orm";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function Page() {
@@ -24,6 +25,9 @@ export default async function Page() {
 		<div>
 			<PageTitle>Category</PageTitle>
 			<CategoryList items={items} />
+			<div className="mt-6">
+				<Link href="/categories/create">New Category</Link>
+			</div>
 		</div>
 	);
 }

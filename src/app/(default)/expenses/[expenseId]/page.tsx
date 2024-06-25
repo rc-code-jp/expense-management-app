@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import { PageTitle } from "@/components/layout/PageTitle";
 import { db } from "@/database/db";
 import { expenseCategories, expenses } from "@/database/schema";
-import { ExpenseRegisterForm } from "@/features/expenses/components/ExpenseRegisterForm";
+import { ExpenseForm } from "@/features/expenses/components/ExpenseForm";
 import { and, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
@@ -35,7 +35,7 @@ export default async function Page({
 	return (
 		<div>
 			<PageTitle>History</PageTitle>
-			<ExpenseRegisterForm categoryList={categoryList} item={item} />
+			<ExpenseForm categoryList={categoryList} item={item} />
 		</div>
 	);
 }

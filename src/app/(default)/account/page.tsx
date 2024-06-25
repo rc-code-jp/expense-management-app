@@ -10,7 +10,7 @@ export default function Page() {
 					<Link href="/expenses">History</Link>
 				</div>
 				<div>
-					<Link href="/expenses/register">New Expense</Link>
+					<Link href="/expenses/create">New Expense</Link>
 				</div>
 				<div>
 					<Link href="/categories">Category</Link>

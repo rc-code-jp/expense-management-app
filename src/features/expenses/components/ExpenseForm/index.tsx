@@ -15,7 +15,7 @@ import { useFormState } from "react-dom";
 type CategoryItem = typeof expenseCategories.$inferSelect;
 type ExpenseItem = typeof expenses.$inferSelect;
 
-export function ExpenseRegisterForm({
+export function ExpenseForm({
 	categoryList,
 	item,
 }: {
