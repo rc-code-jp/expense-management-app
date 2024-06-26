@@ -15,6 +15,9 @@ export default function Page() {
 				<div>
 					<Link href="/categories">Category</Link>
 				</div>
+				<div>
+					<Link href="/auth/logout">Logout</Link>
+				</div>
 			</div>
 		</div>
 	);
