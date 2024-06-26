@@ -25,6 +25,7 @@ export default async function Page() {
 		<div>
 			<PageTitle>History</PageTitle>
 			<ExpenseList items={items} />
+			<div className="pt-20" />
 		</div>
 	);
 }

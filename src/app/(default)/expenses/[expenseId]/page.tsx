@@ -36,6 +36,7 @@ export default async function Page({
 		<div>
 			<PageTitle>History</PageTitle>
 			<ExpenseForm categoryList={categoryList} item={item} />
+			<div className="pt-20" />
 		</div>
 	);
 }
