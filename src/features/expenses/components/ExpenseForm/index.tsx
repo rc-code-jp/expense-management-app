@@ -25,45 +25,51 @@ export function ExpenseForm({
 	const [formState, formDispatch] = useFormState(saveExpense, formActionState);
 
 	return (
-		<form action={formDispatch}>
+		<div>
 			<FormAlert message={formState.message} />
-			<div>
-				<FormText
-					name="amount"
-					label="Amount"
-					defaultValue={item.amount || ""}
-					required
-				/>
-			</div>
-			<div>
-				<FormSelect
-					label="Category"
-					name="categoryId"
-					required
-					defaultValue={item.categoryId ?? ""}
-					options={categoryList.map((category) => ({
-						value: category.id,
-						text: category.name,
-					}))}
-				/>
-			</div>
-			<div>
-				<FormDate
-					name="date"
-					label="Date"
-					defaultValue={item.date ?? ""}
-					required
-				/>
-			</div>
-			<div>
-				<FormTime name="time" label="Time" defaultValue={item.time ?? ""} />
-			</div>
-			<div>
-				<FormTextarea name="note" label="Note" defaultValue={item.note ?? ""} />
-			</div>
-			<div className="mt-6">
-				<FormButton>{item.id ? "Update" : "Save"}</FormButton>
-			</div>
-		</form>
+			<form action={formDispatch}>
+				<div>
+					<FormText
+						name="amount"
+						label="Amount"
+						defaultValue={item.amount || ""}
+						required
+					/>
+				</div>
+				<div>
+					<FormSelect
+						label="Category"
+						name="categoryId"
+						required
+						defaultValue={item.categoryId ?? ""}
+						options={categoryList.map((category) => ({
+							value: category.id,
+							text: category.name,
+						}))}
+					/>
+				</div>
+				<div>
+					<FormDate
+						name="date"
+						label="Date"
+						defaultValue={item.date ?? ""}
+						required
+					/>
+				</div>
+				<div>
+					<FormTime name="time" label="Time" defaultValue={item.time ?? ""} />
+				</div>
+				<div>
+					<FormTextarea
+						name="note"
+						label="Note"
+						defaultValue={item.note ?? ""}
+					/>
+				</div>
+				<div className="mt-6">
+					<FormButton>{item.id ? "Update" : "Save"}</FormButton>
+				</div>
+			</form>
+		</div>
 	);
 }

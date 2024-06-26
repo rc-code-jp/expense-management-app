@@ -2,7 +2,7 @@
 
 import { auth } from "@/auth";
 import { db } from "@/database/db";
-import { expenseCategories, expenses } from "@/database/schema";
+import { expenseCategories } from "@/database/schema";
 import type { FormActionState } from "@/features/expenses/actionState/formActionState";
 import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
@@ -23,7 +23,7 @@ export async function deleteExpenseCategory(
 	const userId = session?.user?.id ?? "";
 
 	await db
-		.delete(expenses)
+		.delete(expenseCategories)
 		.where(
 			and(
 				eq(expenseCategories.userId, userId),

@@ -2,6 +2,7 @@ import { auth } from "@/auth";
 import { PageTitle } from "@/components/layout/PageTitle";
 import { db } from "@/database/db";
 import { expenseCategories, expenses } from "@/database/schema";
+import { ExpenseFab } from "@/features/expenses/components/ExpenseFab";
 import { ExpenseList } from "@/features/expenses/components/ExpenseList";
 import { desc, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
@@ -25,6 +26,7 @@ export default async function Page() {
 		<div>
 			<PageTitle>History</PageTitle>
 			<ExpenseList items={items} />
+			<ExpenseFab />
 		</div>
 	);
 }

@@ -2,12 +2,14 @@ export function FormText({
 	label,
 	name,
 	defaultValue,
+	type = "text",
 	placeholder,
 	required,
 }: {
 	label?: string;
 	name: string;
 	defaultValue?: string | number;
+	type?: "text" | "color" | "email" | "number" | "password" | "tel" | "url";
 	placeholder?: string;
 	required?: boolean;
 }) {
@@ -16,7 +18,7 @@ export function FormText({
 			<label className="flex flex-col">
 				{label && <span className="">{label}</span>}
 				<input
-					type="text"
+					type={type}
 					name={name}
 					defaultValue={defaultValue}
 					placeholder={placeholder}

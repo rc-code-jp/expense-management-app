@@ -18,6 +18,12 @@ export function CategoryList({
 		formActionState,
 	);
 
+	const deleteAction = (formData: FormData) => {
+		const confirm = window.confirm("Are you sure?");
+		if (!confirm) return;
+		formDispatch(formData);
+	};
+
 	return (
 		<ul>
 			{items.map((item) => (
@@ -33,7 +39,7 @@ export function CategoryList({
 							</p>
 						</Link>
 						<form
-							action={formDispatch}
+							action={deleteAction}
 							className="-translate-y-1/2 absolute top-1/2 right-2"
 						>
 							<input type="hidden" name="id" defaultValue={item.id} />

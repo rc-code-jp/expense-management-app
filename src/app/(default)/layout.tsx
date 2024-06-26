@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { AppBar } from "@/components/layout/AppBar";
+import { CommonFooter } from "@/components/layout/CommonFooter";
 import { redirect } from "next/navigation";
 
 export default async function DefaultLayout({
@@ -18,6 +19,8 @@ export default async function DefaultLayout({
 		<div className="w-full">
 			<AppBar userImage={user?.image} />
 			<div className="px-2">{children}</div>
+			<div className="mb-12" />
+			<CommonFooter />
 		</div>
 	);
 }

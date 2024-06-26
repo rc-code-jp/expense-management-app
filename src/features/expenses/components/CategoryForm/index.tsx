@@ -1,5 +1,8 @@
 "use client";
 
+import { FormAlert } from "@/components/form/FormAlert";
+import { FormButton } from "@/components/form/FormButton";
+import { FormText } from "@/components/form/FormText";
 import type { expenseCategories } from "@/database/schema";
 import { formActionState } from "@/features/expenses/actionState/formActionState";
 import { saveExpenseCategory } from "@/features/expenses/actions/saveExpenseCategory";
@@ -18,26 +21,33 @@ export function CategoryForm({
 	);
 
 	return (
-		<form action={formDispatch}>
-			<div>{JSON.stringify(formState)}</div>
-			<div>
-				<input type="hidden" name="id" defaultValue={item?.id} />
+		<div>
+			<FormAlert message={formState.message} />
+			<form action={formDispatch}>
 				<div>
-					<label>
-						<span>カテゴリー名</span>
-						<input type="text" name="name" defaultValue={item?.name} />
-					</label>
+					<input type="hidden" name="id" defaultValue={item?.id} />
+					<div>
+						<FormText
+							name="name"
+							label="Name"
+							defaultValue={item?.name || ""}
+							required
+						/>
+					</div>
+					<div>
+						<FormText
+							name="color"
+							type="color"
+							label="Color"
+							defaultValue={item?.color || ""}
+							required
+						/>
+					</div>
+					<div className="mt-6">
+						<FormButton>{item?.id ? "Update" : "Save"}</FormButton>
+					</div>
 				</div>
-				<div>
-					<label>
-						<span>カラー</span>
-						<input type="color" name="color" defaultValue={item?.color ?? ""} />
-					</label>
-				</div>
-				<div>
-					<button type="submit">登録</button>
-				</div>
-			</div>
-		</form>
+			</form>
+		</div>
 	);
 }
