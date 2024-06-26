@@ -1,12 +1,15 @@
 "use client";
 import { signOut } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export function AppBar({
 	userImage,
 }: {
 	userImage?: string | null;
 }) {
+	const router = useRouter();
+
 	const handleClickLogout = async (e: React.MouseEvent) => {
 		e.preventDefault();
 		closeMenu();
@@ -15,8 +18,10 @@ export function AppBar({
 		await signOut();
 	};
 
-	const handleClickLink = () => {
-		setTimeout(() => closeMenu(), 500);
+	const toLink = (e: React.MouseEvent, href: string) => {
+		e.preventDefault();
+		closeMenu();
+		router.push(href);
 	};
 
 	const closeMenu = () => {
@@ -46,27 +51,30 @@ export function AppBar({
 					</div>
 					<ul className="menu menu-sm dropdown-content z-[1] mt-3 w-52 rounded-box bg-base-100 bg-neutral p-2 shadow">
 						<li>
-							<Link href="/expenses/create" onClick={handleClickLink}>
+							<a
+								href="/expenses/create"
+								onClick={(e) => toLink(e, "/expenses/create")}
+							>
 								New Expense
-							</Link>
+							</a>
 						</li>
 						<li>
-							<Link href="/expenses" onClick={handleClickLink}>
+							<a href="/expenses" onClick={(e) => toLink(e, "/expenses")}>
 								History
-							</Link>
+							</a>
 						</li>
 						<li>
-							<Link href="/report" onClick={handleClickLink}>
+							<a href="/report" onClick={(e) => toLink(e, "/report")}>
 								Report
-							</Link>
+							</a>
 						</li>
 						<li>
-							<Link href="/account" onClick={handleClickLink}>
+							<a href="/account" onClick={(e) => toLink(e, "/account")}>
 								Account
-							</Link>
+							</a>
 						</li>
 						<li>
-							<a href="/" onClick={handleClickLogout} className="">
+							<a href="/auth/login" onClick={handleClickLogout}>
 								Logout
 							</a>
 						</li>
