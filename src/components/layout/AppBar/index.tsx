@@ -7,7 +7,7 @@ export function AppBar({
 	userImage?: string | null;
 }) {
 	return (
-		<div className="navbar fixed z-30 mb-4 rounded-b-lg bg-neutral text-neutral-content shadow-xl">
+		<div className="navbar fixed z-30 mb-4 rounded-b-lg bg-neutral text-neutral-content shadow-xl md:w-[1024px]">
 			<div className="flex-1">
 				<a href="/" className="btn btn-ghost text-xl">
 					App

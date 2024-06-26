@@ -14,7 +14,7 @@ export function BottomNav() {
 	};
 
 	return (
-		<div className="btm-nav">
+		<div className="btm-nav right-auto left-auto md:w-[1024px]">
 			<Link
 				href="/report"
 				className={isActive("/report", true) ? "active" : ""}
