@@ -30,6 +30,7 @@ export function ExpenseForm({
 			<form action={formDispatch}>
 				<div>
 					<FormText
+						type="tel"
 						name="amount"
 						label="Amount"
 						defaultValue={item.amount || ""}
