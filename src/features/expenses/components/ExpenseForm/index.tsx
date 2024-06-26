@@ -10,7 +10,7 @@ import { FormTime } from "@/components/form/FormTime";
 import type { expenseCategories, expenses } from "@/database/schema";
 import { formActionState } from "@/features/expenses/actionState/formActionState";
 import { saveExpense } from "@/features/expenses/actions/saveExpense";
-import { useFormState } from "react-dom";
+import { useFormState, useFormStatus } from "react-dom";
 
 type CategoryItem = typeof expenseCategories.$inferSelect;
 type ExpenseItem = typeof expenses.$inferSelect;
