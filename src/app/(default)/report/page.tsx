@@ -1,5 +1,4 @@
 import { auth } from "@/auth";
-import { PageTitle } from "@/components/layout/PageTitle";
 import { db } from "@/database/db";
 import { expenses } from "@/database/schema";
 import { dateFns } from "@/lib/dateFns";
@@ -99,24 +98,73 @@ export default async function Page() {
 
 	return (
 		<div>
-			<PageTitle>Report</PageTitle>
-			<div>
-				<p>Monthly Total</p>
-				<output className="font-bold">{monthSum.toLocaleString()}</output>
-				<p>Monthly Balance</p>
-				<output className="font-bold">{monthlyBalance.toLocaleString()}</output>
-			</div>
-			<div className="mt-4">
-				<p>Weekly Total</p>
-				<output className="font-bold">{weekSum.toLocaleString()}</output>
-				<p>Weekly Balance</p>
-				<output className="font-bold">{weeklyBalance.toLocaleString()}</output>
-			</div>
-			<div className="mt-4">
-				<p>Today Total</p>
-				<output className="font-bold">{todaySum.toLocaleString()}</output>
-				<p>Today Balance</p>
-				<output className="font-bold">{todayBalance.toLocaleString()}</output>
+			{/* month */}
+			<div className="flex flex-col">
+				<h2 className="p-2 pt-0 font-bold text-lg">Monthly</h2>
+				<div className="flex flex-nowrap gap-2">
+					<div className="stats w-full shadow">
+						<div className="stat place-items-center">
+							<div className="stat-title">Total</div>
+							<div className="stat-value text-xl">
+								{monthSum.toLocaleString()}
+							</div>
+							<div className="stat-desc">{monthlyUseRate}% used</div>
+						</div>
+					</div>
+					<div className="stats w-full shadow">
+						<div className="stat place-items-center">
+							<div className="stat-title">Balance</div>
+							<div className="stat-value text-xl">
+								{monthlyBalance.toLocaleString()}
+							</div>
+							<div className="stat-desc">{100 - monthlyUseRate}%</div>
+						</div>
+					</div>
+				</div>
+				{/* week */}
+				<h2 className="mt-2 p-2 font-bold text-lg">Weekly</h2>
+				<div className="flex flex-nowrap gap-2">
+					<div className="stats w-full shadow">
+						<div className="stat place-items-center">
+							<div className="stat-title">Total</div>
+							<div className="stat-value text-xl">
+								{weekSum.toLocaleString()}
+							</div>
+							<div className="stat-desc">{weeklyUseRate}% used</div>
+						</div>
+					</div>
+					<div className="stats w-full shadow">
+						<div className="stat place-items-center">
+							<div className="stat-title">Balance</div>
+							<div className="stat-value text-xl">
+								{weeklyBalance.toLocaleString()}
+							</div>
+							<div className="stat-desc">{100 - weeklyUseRate}%</div>
+						</div>
+					</div>
+				</div>
+				{/* today */}
+				<h2 className="mt-2 p-2 font-bold text-lg">Today</h2>
+				<div className="flex flex-nowrap gap-2">
+					<div className="stats w-full shadow">
+						<div className="stat place-items-center">
+							<div className="stat-title">Total</div>
+							<div className="stat-value text-xl">
+								{todaySum.toLocaleString()}
+							</div>
+							<div className="stat-desc">{todayUseRate}% used</div>
+						</div>
+					</div>
+					<div className="stats w-full shadow">
+						<div className="stat place-items-center">
+							<div className="stat-title">Balance</div>
+							<div className="stat-value text-xl">
+								{todayBalance.toLocaleString()}
+							</div>
+							<div className="stat-desc">{100 - todayUseRate}%</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	);
