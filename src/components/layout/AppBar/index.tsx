@@ -16,7 +16,7 @@ export function AppBar({
 	};
 
 	const handleClickLink = () => {
-		closeMenu();
+		setTimeout(() => closeMenu(), 500);
 	};
 
 	const closeMenu = () => {
