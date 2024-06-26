@@ -43,7 +43,12 @@ export function CategoryList({
 							className="-translate-y-1/2 absolute top-1/2 right-2"
 						>
 							<input type="hidden" name="id" defaultValue={item.id} />
-							<button type="submit">削除</button>
+							<button
+								type="submit"
+								className="btn btn-error btn-outline btn-xs"
+							>
+								Delete
+							</button>
 						</form>
 					</div>
 				</li>

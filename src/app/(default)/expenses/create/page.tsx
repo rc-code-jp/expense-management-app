@@ -28,7 +28,7 @@ export default async function Page() {
 	const item: typeof expenses.$inferSelect = {
 		id: "",
 		amount: 0,
-		categoryId: "",
+		categoryId: categoryList[0]?.id ?? "",
 		date: nowDateString,
 		time: nowTimeString,
 		note: "",
