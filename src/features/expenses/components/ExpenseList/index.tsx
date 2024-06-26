@@ -34,7 +34,7 @@ export function ExpenseList({
 					<div className="relative size-full rounded-md border border-primary/5 p-4 shadow-md">
 						<Link
 							prefetch={false}
-							href={`/expenses/${item.expenses.id}`}
+							href={`/items/${item.expenses.id}`}
 							className="block size-full"
 						>
 							<div className="font-bold text-xs">{item.expenses.date}</div>

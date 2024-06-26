@@ -26,7 +26,7 @@ export async function deleteExpense(
 		.delete(expenses)
 		.where(and(eq(expenses.userId, userId), eq(expenses.id, body.id)));
 
-	revalidatePath("/expenses");
+	revalidatePath("/history");
 
 	return { message: "" };
 }

@@ -1,14 +1,18 @@
 import { auth } from "@/auth";
 import { PageTitle } from "@/components/layout/PageTitle";
 import { db } from "@/database/db";
-import { expenseCategories, type expenses } from "@/database/schema";
+import { expenseCategories, expenses } from "@/database/schema";
 import { ExpenseForm } from "@/features/expenses/components/ExpenseForm";
-import { dateFns } from "@/lib/dateFns";
-import { eq } from "drizzle-orm";
-import Link from "next/link";
+import { and, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
-export default async function Page() {
+export default async function Page({
+	params,
+}: {
+	params: {
+		expenseId: string;
+	};
+}) {
 	const session = await auth();
 	if (!session) {
 		return redirect("/auth/login");
@@ -21,25 +25,16 @@ export default async function Page() {
 		.from(expenseCategories)
 		.where(eq(expenseCategories.userId, userId));
 
-	const now = new Date();
-	const nowDateString = dateFns.format(now, "yyyy-MM-dd");
-	const nowTimeString = dateFns.format(now, "HH:mm");
+	const res = await db
+		.select()
+		.from(expenses)
+		.where(and(eq(expenses.userId, userId), eq(expenses.id, params.expenseId)));
 
-	const item: typeof expenses.$inferSelect = {
-		id: "",
-		amount: 0,
-		categoryId: categoryList[0]?.id ?? "",
-		date: nowDateString,
-		time: nowTimeString,
-		note: "",
-		userId: "",
-		createdAt: null,
-		updatedAt: null,
-	};
+	const item = res[0];
 
 	return (
 		<div>
-			<PageTitle>Register</PageTitle>
+			<PageTitle>Update Item</PageTitle>
 			<ExpenseForm categoryList={categoryList} item={item} />
 			<div className="pt-20" />
 		</div>

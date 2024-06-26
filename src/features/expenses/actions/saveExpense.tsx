@@ -63,5 +63,5 @@ export async function saveExpense(
 		});
 	}
 
-	redirect("/expenses");
+	redirect("/history");
 }
