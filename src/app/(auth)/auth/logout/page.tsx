@@ -13,7 +13,12 @@ export default function Page() {
 		setMounted(true);
 		const confirmed = confirm("Are you sure you want to sign out?");
 		if (confirmed) {
-			signOut();
+			signOut()
+				.then((_) => _)
+				.catch((e) => e)
+				.then(() => {
+					router.push("/account");
+				});
 		} else {
 			router.push("/account");
 		}
