@@ -1,4 +1,5 @@
 import { PageTitle } from "@/components/layout/PageTitle";
+import { LogoutButton } from "@/features/auth/components/LogoutButton";
 import Link from "next/link";
 
 export default function Page() {
@@ -6,18 +7,20 @@ export default function Page() {
 		<div>
 			<PageTitle>Account</PageTitle>
 			<div>
-				<div>
-					<Link href="/history">History</Link>
-				</div>
-				<div>
-					<Link href="/items/create">New Item</Link>
-				</div>
-				<div>
-					<Link href="/categories">Category</Link>
-				</div>
-				<div>
-					<Link href="/auth/logout">Logout</Link>
-				</div>
+				<ul className="menu min-h-full w-full bg-base-200 p-4 text-base-content">
+					<li>
+						<Link href="/history">History</Link>
+					</li>
+					<li>
+						<Link href="/items/create">New Item</Link>
+					</li>
+					<li>
+						<Link href="/categories">Category</Link>
+					</li>
+					<li>
+						<LogoutButton />
+					</li>
+				</ul>
 			</div>
 		</div>
 	);
