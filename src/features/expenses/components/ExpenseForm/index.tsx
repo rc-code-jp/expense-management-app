@@ -28,6 +28,7 @@ export function ExpenseForm({
 		<div>
 			<FormAlert message={formState.message} />
 			<form action={formDispatch}>
+				<input type="hidden" name="id" defaultValue={item.id ?? ""} />
 				<div>
 					<FormText
 						type="tel"

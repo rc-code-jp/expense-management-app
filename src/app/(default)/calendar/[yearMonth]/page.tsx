@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { PageTitle } from "@/components/layout/PageTitle";
 import { db } from "@/database/db";
 import { expenses } from "@/database/schema";
 import { dateFns } from "@/lib/dateFns";
@@ -58,9 +59,9 @@ export default async function Page({
 	// カレンダーを構築して、合計金額を表示
 	return (
 		<div>
-			<h1>
+			<PageTitle>
 				{year}年{month}月
-			</h1>
+			</PageTitle>
 			<div className="flex flex-row flex-wrap">
 				{[...Array(7)].map((_, w) => (
 					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
@@ -83,7 +84,7 @@ export default async function Page({
 					return (
 						<div key={day} className="w-[calc(100%_/_7)] text-center">
 							<p>{day}</p>
-							<p className="h-10 text-primary text-xs">
+							<p className="h-10 font-bold text-primary text-xs">
 								{(total[date] ?? "").toLocaleString()}
 							</p>
 						</div>

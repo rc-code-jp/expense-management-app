@@ -1,4 +1,5 @@
 import { auth } from "@/auth";
+import { PageTitle } from "@/components/layout/PageTitle";
 import { db } from "@/database/db";
 import { expenses } from "@/database/schema";
 import { dateFns } from "@/lib/dateFns";
@@ -98,25 +99,24 @@ export default async function Page() {
 
 	return (
 		<div>
+			<PageTitle>Report</PageTitle>
 			<div>
-				<p>今月の合計</p>
-				<output>{monthSum.toLocaleString()} 円</output>
-				<p>今月の残り</p>
-				<output>{monthlyBalance.toLocaleString()} 円</output>
+				<p>Monthly Total</p>
+				<output className="font-bold">{monthSum.toLocaleString()}</output>
+				<p>Monthly Balance</p>
+				<output className="font-bold">{monthlyBalance.toLocaleString()}</output>
 			</div>
-			<hr />
-			<div>
-				<p>今週の合計</p>
-				<output>{weekSum.toLocaleString()} 円</output>
-				<p>今週の残り</p>
-				<output>{weeklyBalance.toLocaleString()} 円</output>
+			<div className="mt-4">
+				<p>Weekly Total</p>
+				<output className="font-bold">{weekSum.toLocaleString()}</output>
+				<p>Weekly Balance</p>
+				<output className="font-bold">{weeklyBalance.toLocaleString()}</output>
 			</div>
-			<hr />
-			<div>
-				<p>本日の合計</p>
-				<output>{todaySum.toLocaleString()} 円</output>
-				<p>本日の残り</p>
-				<output>{todayBalance.toLocaleString()} 円</output>
+			<div className="mt-4">
+				<p>Today Total</p>
+				<output className="font-bold">{todaySum.toLocaleString()}</output>
+				<p>Today Balance</p>
+				<output className="font-bold">{todayBalance.toLocaleString()}</output>
 			</div>
 		</div>
 	);

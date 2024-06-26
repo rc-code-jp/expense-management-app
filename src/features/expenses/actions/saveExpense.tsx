@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenses } from "@/database/schema";
 import type { FormActionState } from "@/features/expenses/actionState/formActionState";
+import { and, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
 export async function saveExpense(
@@ -39,14 +40,28 @@ export async function saveExpense(
 
 	const userId = session?.user?.id ?? "";
 
-	await db.insert(expenses).values({
-		userId: userId,
-		categoryId: body.categoryId,
-		amount: body.amount,
-		date: body.date,
-		time: body.time || null,
-		note: body.note,
-	});
+	if (body.id) {
+		await db
+			.update(expenses)
+			.set({
+				userId: userId,
+				categoryId: body.categoryId,
+				amount: body.amount,
+				date: body.date,
+				time: body.time || null,
+				note: body.note,
+			})
+			.where(and(eq(expenses.userId, userId), eq(expenses.id, body.id)));
+	} else {
+		await db.insert(expenses).values({
+			userId: userId,
+			categoryId: body.categoryId,
+			amount: body.amount,
+			date: body.date,
+			time: body.time || null,
+			note: body.note,
+		});
+	}
 
 	redirect("/expenses");
 }
