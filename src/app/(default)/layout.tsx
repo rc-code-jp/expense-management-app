@@ -1,7 +1,6 @@
 import { auth } from "@/auth";
 import { AppBar } from "@/components/layout/AppBar";
 import { BottomNav } from "@/components/layout/BottomNav";
-import { CommonFooter } from "@/components/layout/CommonFooter";
 import { redirect } from "next/navigation";
 
 export default async function DefaultLayout({
