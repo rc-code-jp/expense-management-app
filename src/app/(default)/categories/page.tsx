@@ -24,12 +24,12 @@ export default async function Page() {
 	return (
 		<div>
 			<PageTitle>Category</PageTitle>
-			<CategoryList items={items} />
-			<div className="mt-6">
+			<div className="mt-4">
 				<Link href="/categories/create" className="btn btn-block shadow-md">
 					Add Category
 				</Link>
 			</div>
+			<CategoryList items={items} />
 		</div>
 	);
 }

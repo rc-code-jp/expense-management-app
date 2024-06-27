@@ -3,8 +3,6 @@
 import type { expenseCategories } from "@/database/schema";
 import { DndContext, type DragEndEvent } from "@dnd-kit/core";
 import { SortableContext } from "@dnd-kit/sortable";
-import { set } from "date-fns";
-import { ne } from "drizzle-orm";
 import { useState } from "react";
 import { sortExpenseCategory } from "../../actions/sortExpenseCategory";
 import { CategoryListItem } from "../CategoryListItem";
@@ -47,6 +45,14 @@ export function CategoryList({
 		}
 		setBusy(false);
 	};
+
+	if (busy) {
+		return (
+			<div className="mt-10 flex size-full items-center justify-center">
+				<span className="loading loading-spinner loading-lg" />
+			</div>
+		);
+	}
 
 	return (
 		<ul>
