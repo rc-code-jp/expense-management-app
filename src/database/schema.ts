@@ -1,4 +1,3 @@
-import { getNow } from "@/lib/dateFns";
 import {
 	boolean,
 	date,
@@ -102,11 +101,11 @@ export const expenses = pgTable("expenses", {
 	date: date("date").notNull(),
 	time: time("time"),
 	note: text("note"),
-	createdAt: timestamp("createdAt", { mode: "date" }).$defaultFn(() =>
-		getNow(),
+	createdAt: timestamp("createdAt", { mode: "date" }).$defaultFn(
+		() => new Date(),
 	),
-	updatedAt: timestamp("updatedAt", { mode: "date" }).$defaultFn(() =>
-		getNow(),
+	updatedAt: timestamp("updatedAt", { mode: "date" }).$defaultFn(
+		() => new Date(),
 	),
 });
 
@@ -121,10 +120,10 @@ export const expenseCategories = pgTable("expenseCategories", {
 	name: text("name").notNull(),
 	color: text("color"),
 	sort: decimal("sort").notNull(),
-	createdAt: timestamp("createdAt", { mode: "date" }).$defaultFn(() =>
-		getNow(),
+	createdAt: timestamp("createdAt", { mode: "date" }).$defaultFn(
+		() => new Date(),
 	),
-	updatedAt: timestamp("updatedAt", { mode: "date" }).$defaultFn(() =>
-		getNow(),
+	updatedAt: timestamp("updatedAt", { mode: "date" }).$defaultFn(
+		() => new Date(),
 	),
 });

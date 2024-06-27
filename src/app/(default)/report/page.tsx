@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenses } from "@/database/schema";
-import { dateFns, getNow } from "@/lib/dateFns";
+import { dateFns, getTimezoneNow } from "@/lib/dateFns";
 import { and, between, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
@@ -16,7 +16,7 @@ export default async function Page() {
 	const dateFormat = "yyyy-MM-dd";
 
 	// 今月の1日を取得
-	const firstDay = dateFns.startOfMonth(getNow());
+	const firstDay = dateFns.startOfMonth(getTimezoneNow());
 	const firstDayString = dateFns.format(firstDay, dateFormat);
 	// 今月の最終日を取得
 	const lastDay = dateFns.endOfMonth(firstDay);
@@ -33,7 +33,7 @@ export default async function Page() {
 			),
 		);
 
-	const now = getNow();
+	const now = getTimezoneNow();
 	const todayStr = dateFns.format(now, dateFormat);
 	const startOfWeek = dateFns.startOfWeek(now);
 	const weekStartStr =
