@@ -1,7 +1,7 @@
 import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenses } from "@/database/schema";
-import { dateFns } from "@/lib/dateFns";
+import { dateFns, getNow } from "@/lib/dateFns";
 import { and, between, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
@@ -33,7 +33,7 @@ export default async function Page() {
 			),
 		);
 
-	const now = new Date();
+	const now = getNow();
 	const todayStr = dateFns.format(now, dateFormat);
 	const startOfWeek = dateFns.startOfWeek(now);
 	const weekStartStr =

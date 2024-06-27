@@ -3,7 +3,7 @@ import { PageTitle } from "@/components/layout/PageTitle";
 import { db } from "@/database/db";
 import { expenseCategories, type expenses } from "@/database/schema";
 import { ExpenseForm } from "@/features/expenses/components/ExpenseForm";
-import { dateFns } from "@/lib/dateFns";
+import { dateFns, getNow } from "@/lib/dateFns";
 import { eq } from "drizzle-orm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -21,7 +21,7 @@ export default async function Page() {
 		.from(expenseCategories)
 		.where(eq(expenseCategories.userId, userId));
 
-	const now = new Date();
+	const now = getNow();
 	const nowDateString = dateFns.format(now, "yyyy-MM-dd");
 	const nowTimeString = dateFns.format(now, "HH:mm");
 
