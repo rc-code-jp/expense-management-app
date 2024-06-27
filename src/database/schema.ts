@@ -1,6 +1,7 @@
 import {
 	boolean,
 	date,
+	decimal,
 	integer,
 	pgTable,
 	primaryKey,
@@ -118,7 +119,7 @@ export const expenseCategories = pgTable("expenseCategories", {
 		.references(() => users.id, { onDelete: "cascade" }),
 	name: text("name").notNull(),
 	color: text("color"),
-	sort: integer("sort").notNull(),
+	sort: decimal("sort").notNull(),
 	createdAt: timestamp("createdAt", { mode: "date" }).$defaultFn(
 		() => new Date(),
 	),

@@ -1,0 +1,1 @@
+export const INITIAL_SORT_VALUE = 65535;

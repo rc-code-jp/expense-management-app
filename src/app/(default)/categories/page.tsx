@@ -26,7 +26,9 @@ export default async function Page() {
 			<PageTitle>Category</PageTitle>
 			<CategoryList items={items} />
 			<div className="mt-6">
-				<Link href="/categories/create">New Category</Link>
+				<Link href="/categories/create" className="btn btn-block shadow-md">
+					Add Category
+				</Link>
 			</div>
 		</div>
 	);

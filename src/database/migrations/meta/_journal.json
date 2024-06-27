@@ -8,6 +8,13 @@
 			"when": 1719058837307,
 			"tag": "0000_outgoing_captain_america",
 			"breakpoints": true
+		},
+		{
+			"idx": 1,
+			"version": "7",
+			"when": 1719480083900,
+			"tag": "0001_panoramic_hercules",
+			"breakpoints": true
 		}
 	]
 }

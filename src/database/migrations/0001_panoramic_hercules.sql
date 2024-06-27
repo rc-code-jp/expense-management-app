@@ -1,0 +1,1 @@
+ALTER TABLE "expenseCategories" ALTER COLUMN "sort" SET DATA TYPE numeric;

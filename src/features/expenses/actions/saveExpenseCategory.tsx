@@ -4,8 +4,9 @@ import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenseCategories } from "@/database/schema";
 import type { FormActionState } from "@/features/expenses/actionState/formActionState";
-import { and, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
+import { INITIAL_SORT_VALUE } from "../utils/categorySort";
 
 export async function saveExpenseCategory(
 	_: FormActionState,
@@ -29,12 +30,12 @@ export async function saveExpenseCategory(
 	const userId = session?.user?.id ?? "";
 
 	if (body.id) {
+		// 更新
 		await db
 			.update(expenseCategories)
 			.set({
 				name: body.name,
 				color: body.color,
-				sort: 0,
 			})
 			.where(
 				and(
@@ -43,11 +44,23 @@ export async function saveExpenseCategory(
 				),
 			);
 	} else {
+		// sortの最大値を取得
+		const maxSortItem = (
+			await db
+				.select()
+				.from(expenseCategories)
+				.where(eq(expenseCategories.userId, userId))
+				.orderBy(desc(expenseCategories.sort))
+				.limit(1)
+		)[0];
+		const maxSort = maxSortItem ? Number(maxSortItem.sort) : 0;
+
+		// 作成
 		await db.insert(expenseCategories).values({
 			userId: userId,
 			name: body.name,
 			color: body.color,
-			sort: 0,
+			sort: String(Math.floor(maxSort) + INITIAL_SORT_VALUE),
 		});
 	}
 
