@@ -44,7 +44,9 @@ export function CategoryList({
 		if (res.message) {
 			alert(res.message);
 		}
-		setBusy(false);
+		setTimeout(() => {
+			setBusy(false);
+		}, 500);
 	};
 
 	if (busy) {
