@@ -9,12 +9,6 @@ export default function Page() {
 			<div>
 				<ul className="menu min-h-full w-full bg-base-200 p-4 text-base-content">
 					<li>
-						<Link href="/history">History</Link>
-					</li>
-					<li>
-						<Link href="/items/create">New Item</Link>
-					</li>
-					<li>
 						<Link href="/categories">Category</Link>
 					</li>
 					<li>

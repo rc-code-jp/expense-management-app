@@ -50,15 +50,13 @@ export function ExpenseForm({
 						}))}
 					/>
 				</div>
-				<div>
+				<div className="grid grid-cols-2 gap-2">
 					<FormDate
 						name="date"
 						label="Date"
 						defaultValue={item.date ?? ""}
 						required
 					/>
-				</div>
-				<div>
 					<FormTime name="time" label="Time" defaultValue={item.time ?? ""} />
 				</div>
 				<div>

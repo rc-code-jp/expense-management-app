@@ -29,11 +29,11 @@ docker-compose up -d
 ### Schema.tsからマイグレーションファイルを作成
 
 ```
-npm drizzle-kit generate
+npx drizzle-kit generate
 ```
 
 ### マイグレーション
 
 ```
-npm drizzle-kit migrate
+npx drizzle-kit migrate
 ```
