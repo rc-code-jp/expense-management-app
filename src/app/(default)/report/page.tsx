@@ -16,7 +16,7 @@ export default async function Page() {
 	const dateFormat = "yyyy-MM-dd";
 
 	// 今月の1日を取得
-	const firstDay = dateFns.startOfMonth(new Date());
+	const firstDay = dateFns.startOfMonth(getNow());
 	const firstDayString = dateFns.format(firstDay, dateFormat);
 	// 今月の最終日を取得
 	const lastDay = dateFns.endOfMonth(firstDay);
