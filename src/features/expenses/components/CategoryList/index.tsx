@@ -21,6 +21,7 @@ export function CategoryList({
 		setBusy(true);
 		const { active, over } = event;
 		if (over == null || active.id === over.id) {
+			setBusy(false);
 			return;
 		}
 
