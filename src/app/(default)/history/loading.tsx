@@ -1,7 +1,7 @@
 export default async function Loading() {
 	return (
 		<>
-			{[...Array(5)].map((_, i) => (
+			{[...Array(7)].map((_, i) => (
 				<div
 					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 					key={i}

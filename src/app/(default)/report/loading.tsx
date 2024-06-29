@@ -5,7 +5,7 @@ export default async function Loading() {
 				<div
 					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 					key={i}
-					className="skeleton mt-4 h-24 w-full"
+					className="skeleton mt-4 h-28 w-full"
 					style={{
 						opacity: 0.3,
 					}}

@@ -18,7 +18,7 @@ export default async function DefaultLayout({
 	return (
 		<div className="w-full">
 			<AppBar userImage={user?.image} />
-			<div className="min-h-svh px-2 pt-16">{children}</div>
+			<div className="min-h-svh px-2 pt-16 pb-20">{children}</div>
 			<BottomNav />
 		</div>
 	);
