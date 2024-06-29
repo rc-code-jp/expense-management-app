@@ -27,7 +27,7 @@ export async function saveExpenseCategory(
 		return { message: "Please enter the name" };
 	}
 
-	const userId = session?.user?.id ?? "";
+	const user = session.user;
 
 	if (body.id) {
 		// 更新
@@ -39,7 +39,7 @@ export async function saveExpenseCategory(
 			})
 			.where(
 				and(
-					eq(expenseCategories.userId, userId),
+					eq(expenseCategories.userId, user.id),
 					eq(expenseCategories.id, body.id),
 				),
 			);
@@ -49,7 +49,7 @@ export async function saveExpenseCategory(
 			await db
 				.select()
 				.from(expenseCategories)
-				.where(eq(expenseCategories.userId, userId))
+				.where(eq(expenseCategories.userId, user.id))
 				.orderBy(desc(expenseCategories.sort))
 				.limit(1)
 		)[0];
@@ -57,7 +57,7 @@ export async function saveExpenseCategory(
 
 		// 作成
 		await db.insert(expenseCategories).values({
-			userId: userId,
+			userId: user.id,
 			name: body.name,
 			color: body.color,
 			sort: String(Math.floor(maxSort) + INITIAL_SORT_VALUE),

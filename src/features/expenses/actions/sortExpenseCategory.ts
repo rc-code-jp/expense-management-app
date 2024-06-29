@@ -17,7 +17,7 @@ export async function sortExpenseCategory(params: {
 		return { message: "Not Authenticated" };
 	}
 
-	const userId = session?.user?.id ?? "";
+	const user = session.user;
 
 	let prevItemSort = 0;
 	if (params.prevId) {
@@ -27,7 +27,7 @@ export async function sortExpenseCategory(params: {
 				.from(expenseCategories)
 				.where(
 					and(
-						eq(expenseCategories.userId, userId),
+						eq(expenseCategories.userId, user.id),
 						eq(expenseCategories.id, params.prevId),
 					),
 				)
@@ -46,7 +46,7 @@ export async function sortExpenseCategory(params: {
 				.from(expenseCategories)
 				.where(
 					and(
-						eq(expenseCategories.userId, userId),
+						eq(expenseCategories.userId, user.id),
 						eq(expenseCategories.id, params.nextId),
 					),
 				)
@@ -67,7 +67,7 @@ export async function sortExpenseCategory(params: {
 		})
 		.where(
 			and(
-				eq(expenseCategories.userId, userId),
+				eq(expenseCategories.userId, user.id),
 				eq(expenseCategories.id, params.categoryId),
 			),
 		);

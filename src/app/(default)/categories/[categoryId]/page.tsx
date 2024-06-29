@@ -21,7 +21,7 @@ export default async function Page({
 
 	const isCreateMode = params.categoryId === "create";
 
-	const userId = session.user?.id ?? "";
+	const user = session.user;
 
 	let item: typeof expenseCategories.$inferSelect | undefined;
 
@@ -31,7 +31,7 @@ export default async function Page({
 			.from(expenseCategories)
 			.where(
 				and(
-					eq(expenseCategories.userId, userId),
+					eq(expenseCategories.userId, user.id),
 					eq(expenseCategories.id, params.categoryId),
 				),
 			);

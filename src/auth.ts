@@ -9,6 +9,12 @@ import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 
+declare module "next-auth" {
+	interface Session {
+		user: typeof users.$inferSelect;
+	}
+}
+
 export const { handlers, auth } = NextAuth({
 	adapter: DrizzleAdapter(db, {
 		usersTable: users,

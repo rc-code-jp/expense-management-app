@@ -19,7 +19,7 @@ export default async function Page({
 		return redirect("/auth/login");
 	}
 
-	const userId = session.user?.id ?? "";
+	const user = session.user;
 
 	let dateStr = "";
 	const paramDateArr = searchParams.date?.split("-") ?? [];
@@ -37,7 +37,7 @@ export default async function Page({
 		dateStr = dateFns.format(date, "yyyy-MM-dd");
 	}
 
-	const where = [eq(expenses.userId, userId)];
+	const where = [eq(expenses.userId, user.id)];
 	if (dateStr) {
 		where.push(eq(expenses.date, dateStr));
 	}
