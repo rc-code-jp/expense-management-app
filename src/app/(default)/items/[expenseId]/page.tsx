@@ -18,17 +18,19 @@ export default async function Page({
 		return redirect("/auth/login");
 	}
 
-	const userId = session.user?.id ?? "";
+	const user = session.user;
 
 	const categoryList = await db
 		.select()
 		.from(expenseCategories)
-		.where(eq(expenseCategories.userId, userId));
+		.where(eq(expenseCategories.userId, user.id));
 
 	const res = await db
 		.select()
 		.from(expenses)
-		.where(and(eq(expenses.userId, userId), eq(expenses.id, params.expenseId)));
+		.where(
+			and(eq(expenses.userId, user.id), eq(expenses.id, params.expenseId)),
+		);
 
 	const item = res[0];
 

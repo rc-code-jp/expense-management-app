@@ -11,7 +11,7 @@ export default async function Page() {
 		return redirect("/auth/login");
 	}
 
-	const userId = session.user?.id ?? "";
+	const user = session.user;
 
 	const dateFormat = "yyyy-MM-dd";
 
@@ -28,7 +28,7 @@ export default async function Page() {
 		.from(expenses)
 		.where(
 			and(
-				eq(expenses.userId, userId),
+				eq(expenses.userId, user.id),
 				between(expenses.date, firstDayString, lastDayString),
 			),
 		);
@@ -55,9 +55,6 @@ export default async function Page() {
 		.filter((v) => todayStr === v.date)
 		.reduce((sum, v) => sum + v.amount, 0);
 
-	// 残り金額
-	const monthlyBudget = 150000; // 仮置き
-
 	// 基準日など
 	const endOfMonth = dateFns.endOfMonth(now);
 	const monthlyDaysLeft = dateFns.differenceInDays(endOfMonth, now) + 1;
@@ -76,7 +73,8 @@ export default async function Page() {
 	const monthlyDaysLeftFromStartWeek =
 		dateFns.differenceInDays(endOfMonth, startDayOfWeekInMonth) + 1;
 
-	// 残高
+	// 予算から残高や使用率を計算
+	const monthlyBudget = user.monthlyBudget || 0;
 	// 今月の残高
 	const monthlyBalance = monthlyBudget - monthSum;
 	// 今月の使用率

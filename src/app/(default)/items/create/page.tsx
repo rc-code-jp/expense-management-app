@@ -14,12 +14,12 @@ export default async function Page() {
 		return redirect("/auth/login");
 	}
 
-	const userId = session.user?.id ?? "";
+	const user = session.user;
 
 	const categoryList = await db
 		.select()
 		.from(expenseCategories)
-		.where(eq(expenseCategories.userId, userId));
+		.where(eq(expenseCategories.userId, user.id));
 
 	const now = getTimezoneNow();
 	const nowDateString = dateFns.format(now, "yyyy-MM-dd");

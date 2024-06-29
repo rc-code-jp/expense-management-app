@@ -20,11 +20,11 @@ export async function deleteExpense(
 		return { message: "Not Authenticated" };
 	}
 
-	const userId = session?.user?.id ?? "";
+	const user = session.user;
 
 	await db
 		.delete(expenses)
-		.where(and(eq(expenses.userId, userId), eq(expenses.id, body.id)));
+		.where(and(eq(expenses.userId, user.id), eq(expenses.id, body.id)));
 
 	revalidatePath("/history");
 

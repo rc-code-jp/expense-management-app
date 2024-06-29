@@ -20,13 +20,13 @@ export async function deleteExpenseCategory(
 		return { message: "Not Authenticated" };
 	}
 
-	const userId = session?.user?.id ?? "";
+	const user = session.user;
 
 	await db
 		.delete(expenseCategories)
 		.where(
 			and(
-				eq(expenseCategories.userId, userId),
+				eq(expenseCategories.userId, user.id),
 				eq(expenseCategories.id, body.id),
 			),
 		);

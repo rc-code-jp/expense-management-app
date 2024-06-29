@@ -19,7 +19,7 @@ export default async function Page({
 		return redirect("/auth/login");
 	}
 
-	const userId = session.user?.id ?? "";
+	const user = session.user;
 
 	const [year, month] = params.yearMonth.split("-").map(Number);
 
@@ -33,7 +33,7 @@ export default async function Page({
 		.from(expenses)
 		.where(
 			and(
-				eq(expenses.userId, userId),
+				eq(expenses.userId, user.id),
 				between(expenses.date, startDateStr, endDateStr),
 			),
 		);

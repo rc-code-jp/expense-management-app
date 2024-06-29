@@ -11,6 +11,7 @@ import {
 } from "drizzle-orm/pg-core";
 import type { AdapterAccountType } from "next-auth/adapters";
 
+// ユーザー（next-auth用を含む）
 export const users = pgTable("users", {
 	id: text("id")
 		.primaryKey()
@@ -19,8 +20,18 @@ export const users = pgTable("users", {
 	email: text("email").notNull(),
 	emailVerified: timestamp("emailVerified", { mode: "date" }),
 	image: text("image"),
+	// ↑ next-auth用のカラム
+	// ↓ このアプリ用のカラム
+	monthlyBudget: integer("monthlyBudget"),
+	createdAt: timestamp("createdAt", { mode: "date" }).$defaultFn(
+		() => new Date(),
+	),
+	updatedAt: timestamp("updatedAt", { mode: "date" }).$defaultFn(
+		() => new Date(),
+	),
 });
 
+// アカウント（next-auth用）
 export const accounts = pgTable(
 	"accounts",
 	{
@@ -45,6 +56,7 @@ export const accounts = pgTable(
 	}),
 );
 
+// セッション（next-auth用）
 export const sessions = pgTable("sessions", {
 	sessionToken: text("sessionToken").primaryKey(),
 	userId: text("userId")
@@ -53,6 +65,7 @@ export const sessions = pgTable("sessions", {
 	expires: timestamp("expires", { mode: "date" }).notNull(),
 });
 
+// トークン検証（next-auth用）
 export const verificationTokens = pgTable(
 	"verificationToken",
 	{
@@ -67,6 +80,7 @@ export const verificationTokens = pgTable(
 	}),
 );
 
+// 認証（next-auth用）
 export const authenticators = pgTable(
 	"authenticators",
 	{

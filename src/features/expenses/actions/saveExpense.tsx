@@ -38,23 +38,23 @@ export async function saveExpense(
 		return { message: "Choose a category" };
 	}
 
-	const userId = session?.user?.id ?? "";
+	const user = session.user;
 
 	if (body.id) {
 		await db
 			.update(expenses)
 			.set({
-				userId: userId,
+				userId: user.id,
 				categoryId: body.categoryId,
 				amount: body.amount,
 				date: body.date,
 				time: body.time || null,
 				note: body.note,
 			})
-			.where(and(eq(expenses.userId, userId), eq(expenses.id, body.id)));
+			.where(and(eq(expenses.userId, user.id), eq(expenses.id, body.id)));
 	} else {
 		await db.insert(expenses).values({
-			userId: userId,
+			userId: user.id,
 			categoryId: body.categoryId,
 			amount: body.amount,
 			date: body.date,
