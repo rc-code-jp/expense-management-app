@@ -25,7 +25,7 @@ export default async function Page() {
 								<input
 									type="tel"
 									name="monthlyBudget"
-									defaultValue={user.monthlyBudget}
+									defaultValue={user.monthlyBudget ?? ""}
 									className="input w-full max-w-xs"
 								/>
 							</label>
