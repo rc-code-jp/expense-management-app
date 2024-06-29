@@ -16,10 +16,7 @@ export function ExpenseList({
 }: {
 	items: Item[];
 }) {
-	const [_formState, formDispatch] = useFormState(
-		deleteExpense,
-		formActionState,
-	);
+	const [, formDispatch] = useFormState(deleteExpense, formActionState);
 
 	const deleteAction = (formData: FormData) => {
 		const confirm = window.confirm("Are you sure?");

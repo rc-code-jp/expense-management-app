@@ -11,6 +11,8 @@ import type { expenseCategories, expenses } from "@/database/schema";
 import { formActionState } from "@/features/expenses/actionState/formActionState";
 import { saveExpense } from "@/features/expenses/actions/saveExpense";
 import { useFormState, useFormStatus } from "react-dom";
+import { deleteExpense } from "../../actions/deleteExpense";
+import { useRouter } from "next/navigation";
 
 type CategoryItem = typeof expenseCategories.$inferSelect;
 type ExpenseItem = typeof expenses.$inferSelect;
@@ -22,7 +24,18 @@ export function ExpenseForm({
 	categoryList: CategoryItem[];
 	item: ExpenseItem;
 }) {
+	const router = useRouter();
+
 	const [formState, formDispatch] = useFormState(saveExpense, formActionState);
+
+	const [, deleteDispatch] = useFormState(deleteExpense, formActionState);
+
+	const deleteAction = (formData: FormData) => {
+		const confirm = window.confirm("Are you sure?");
+		if (!confirm) return;
+		deleteDispatch(formData);
+		router.push("/history");
+	};
 
 	return (
 		<div>
@@ -70,6 +83,13 @@ export function ExpenseForm({
 					<FormButton>{item.id ? "Update" : "Save"}</FormButton>
 				</div>
 			</form>
+			{item.id && (
+				<form action={deleteAction} className="mt-8 block">
+					<FormButton type="submit" buttonClassName="text-error btn-ghost">
+						Delete Item
+					</FormButton>
+				</form>
+			)}
 		</div>
 	);
 }
