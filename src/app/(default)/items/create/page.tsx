@@ -4,7 +4,7 @@ import { db } from "@/database/db";
 import { expenseCategories, type expenses } from "@/database/schema";
 import { ExpenseForm } from "@/features/expenses/components/ExpenseForm";
 import { dateFns, getTimezoneNow } from "@/lib/dateFns";
-import { eq } from "drizzle-orm";
+import { asc, desc, eq } from "drizzle-orm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -19,7 +19,8 @@ export default async function Page() {
 	const categoryList = await db
 		.select()
 		.from(expenseCategories)
-		.where(eq(expenseCategories.userId, user.id));
+		.where(eq(expenseCategories.userId, user.id))
+		.orderBy(asc(expenseCategories.sort), desc(expenseCategories.createdAt));
 
 	const now = getTimezoneNow();
 	const nowDateString = dateFns.format(now, "yyyy-MM-dd");
