@@ -14,7 +14,7 @@ export function LogoutButton() {
 	};
 
 	return (
-		<button type="button" onClick={logout}>
+		<button type="button" onClick={logout} className="btn btn-wide shadow-md">
 			Logout
 		</button>
 	);

@@ -1,4 +1,6 @@
 import { auth } from "@/auth";
+import { FormButton } from "@/components/form/FormButton";
+import { FormText } from "@/components/form/FormText";
 import { PageTitle } from "@/components/layout/PageTitle";
 import { saveMonthlyBudget } from "@/features/account/actions/saveMonthlyBudget";
 import { LogoutButton } from "@/features/auth/components/LogoutButton";
@@ -20,22 +22,33 @@ export default async function Page() {
 				<ul>
 					<li>
 						<form action={saveMonthlyBudget}>
-							<label>
-								<span>Monthly Budget:</span>
-								<input
-									type="tel"
-									name="monthlyBudget"
-									defaultValue={user.monthlyBudget ?? ""}
-									className="input w-full max-w-xs"
-								/>
-							</label>
+							<FormText
+								label="Monthly Budget"
+								name={"monthlyBudget"}
+								defaultValue={user.monthlyBudget ?? ""}
+							/>
+							<div className="flex">
+								<FormButton>Save Budget</FormButton>
+							</div>
 						</form>
 					</li>
-					<li className="mt-4">
-						<Link href="/categories">Category Setting</Link>
+					<li className="mt-8">
+						<div>
+							<label>Category Setting</label>
+							<p className="mt-2 flex">
+								<Link href="/categories" className="btn btn-wide shadow-md">
+									Go Category Setting Page
+								</Link>
+							</p>
+						</div>
 					</li>
-					<li className="mt-6">
-						<LogoutButton />
+					<li className="mt-8">
+						<div>
+							<label>Logout</label>
+							<p className="mt-2 flex">
+								<LogoutButton />
+							</p>
+						</div>
 					</li>
 				</ul>
 			</div>
