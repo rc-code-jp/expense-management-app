@@ -28,7 +28,7 @@ export function ExpenseList({
 		<ul>
 			{items.map((item) => (
 				<li key={item.expenses.id} style={{ marginTop: 10 }}>
-					<div className="relative size-full rounded-md border border-primary/5 p-4 shadow-md">
+					<div className="relative size-full rounded-md border border-primary/5 p-4 shadow-md hover:opacity-50">
 						<Link
 							prefetch={false}
 							href={`/items/${item.expenses.id}`}

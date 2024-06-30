@@ -9,13 +9,13 @@ export function AppBar({
 	return (
 		<div className="navbar fixed z-30 mb-4 h-12 min-h-12 rounded-b-lg bg-neutral text-neutral-content shadow-xl md:w-[1024px]">
 			<div className="flex-1">
-				<a href="/" className="btn btn-ghost text-xl">
-					App
-				</a>
+				<Link href="/" prefetch={false} className="btn btn-ghost text-xl">
+					My Expenditure
+				</Link>
 			</div>
 			<Link
-				prefetch={true}
 				href="/account"
+				prefetch={true}
 				className="block w-7 overflow-hidden rounded-full"
 			>
 				{userImage && <img alt="profile" src={userImage} />}
