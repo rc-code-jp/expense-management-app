@@ -15,10 +15,10 @@ export default async function getExpenseList(params: {
 	offset: number;
 	limit: number;
 	date?: string;
-}): Promise<{ items: Item[] }> {
+}): Promise<{ items: Item[]; date: string }> {
 	const session = await auth();
 	if (!session) {
-		return { items: [] };
+		return { items: [], date: "" };
 	}
 
 	const user = session.user;
@@ -27,9 +27,11 @@ export default async function getExpenseList(params: {
 	const where = [eq(expenses.userId, user.id)];
 
 	// 日付指定
+	let dateStr = "";
 	if (params.date) {
 		const date = new Date(params.date);
-		where.push(eq(expenses.date, dateFns.format(date, "yyyy-MM-dd")));
+		dateStr = dateFns.format(date, "yyyy-MM-dd");
+		where.push(eq(expenses.date, dateStr));
 	}
 
 	const items = await db
@@ -41,5 +43,5 @@ export default async function getExpenseList(params: {
 		.offset(params.offset)
 		.limit(params.limit);
 
-	return { items: items };
+	return { items: items, date: dateStr };
 }
