@@ -1,10 +1,6 @@
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 
-// const pool = new Pool({
-// 	connectionString: process.env.DATABASE_URL ?? "",
-// });
-
 export const poolConfig = {
 	host: process.env.DB_HOST ?? "",
 	port: Number(process.env.DB_PORT),
@@ -17,4 +13,6 @@ export const poolConfig = {
 // or
 const pool = new Pool(poolConfig);
 
-export const db = drizzle(pool);
+export const db = drizzle(pool, {
+	logger: process.env.DB_LOG === "true",
+});
