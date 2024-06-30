@@ -42,9 +42,6 @@ export default async function Page({
 		<div>
 			<PageTitle>Category</PageTitle>
 			<CategoryForm item={item} />
-			<div>
-				<Link href="/categories">戻る</Link>
-			</div>
 		</div>
 	);
 }
