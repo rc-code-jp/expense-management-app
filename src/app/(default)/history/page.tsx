@@ -3,6 +3,7 @@ import { PageTitle } from "@/components/layout/PageTitle";
 import { db } from "@/database/db";
 import { expenseCategories, expenses } from "@/database/schema";
 import { ExpenseList } from "@/features/expenses/components/ExpenseList";
+import { EXPENSE_LIST_LIMIT } from "@/features/expenses/utils/expenseList";
 import { dateFns } from "@/lib/dateFns";
 import { and, desc, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
@@ -21,24 +22,14 @@ export default async function Page({
 
 	const user = session.user;
 
-	let dateStr = "";
-	const paramDateArr = searchParams.date?.split("-") ?? [];
-	if (paramDateArr.length > 0) {
-		const date = new Date();
-		if (paramDateArr[0]) {
-			date.setFullYear(Number.parseInt(paramDateArr[0], 10));
-		}
-		if (paramDateArr[1]) {
-			date.setMonth(Number.parseInt(paramDateArr[1], 10) - 1);
-		}
-		if (paramDateArr[2]) {
-			date.setDate(Number.parseInt(paramDateArr[2], 10));
-		}
-		dateStr = dateFns.format(date, "yyyy-MM-dd");
-	}
-
+	// 条件
 	const where = [eq(expenses.userId, user.id)];
-	if (dateStr) {
+
+	// 日付指定
+	const dateStr = "";
+	if (searchParams.date) {
+		const date = new Date(searchParams.date);
+		const dateStr = dateFns.format(date, "yyyy-MM-dd");
 		where.push(eq(expenses.date, dateStr));
 	}
 
@@ -48,7 +39,7 @@ export default async function Page({
 		.where(and(...where))
 		.innerJoin(expenseCategories, eq(expenses.categoryId, expenseCategories.id))
 		.orderBy(desc(expenses.date), desc(expenses.time))
-		.limit(20);
+		.limit(EXPENSE_LIST_LIMIT);
 
 	return (
 		<div>

@@ -19,6 +19,12 @@
 			"recommended": true,
 			"nursery": {
 				"useSortedClasses": "error"
+			},
+			"correctness": {
+				"noUnusedVariables": "error"
+			},
+			"style": {
+				"useSelfClosingElements": "error"
 			}
 		}
 	}
