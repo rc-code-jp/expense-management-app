@@ -61,7 +61,7 @@ export function ExpenseCalendar({
 						key={day}
 						href={`/history?date=${date}`}
 						prefetch={false}
-						className="block w-[calc(100%_/_7)] text-center hover:opacity-50"
+						className="block w-[calc(100%_/_7)] text-center hover:shadow-inner"
 					>
 						<p>{day}</p>
 						<p className="h-10 font-bold text-primary text-xs">

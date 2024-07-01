@@ -1,6 +1,9 @@
+import { PageTitle } from "@/components/layout/PageTitle";
+
 export default async function Loading() {
 	return (
-		<>
+		<div>
+			<PageTitle>History</PageTitle>
 			{[...Array(7)].map((_, i) => (
 				<div
 					// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
@@ -11,6 +14,6 @@ export default async function Loading() {
 					}}
 				/>
 			))}
-		</>
+		</div>
 	);
 }

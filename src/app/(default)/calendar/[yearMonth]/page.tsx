@@ -41,7 +41,7 @@ export default async function Page({
 	return (
 		<div>
 			<PageTitle>
-				{year}年{month}月
+				{year}-{month}
 			</PageTitle>
 			<ExpenseCalendar items={items} year={year} month={month} />
 		</div>
