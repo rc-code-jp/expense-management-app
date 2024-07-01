@@ -21,14 +21,14 @@ export function BottomNav() {
 			>
 				<span className="btm-nav-label">Report</span>
 			</Link>
-			<Link href="/history" className={isActive("/history") ? "active" : ""}>
-				<span className="btm-nav-label">History</span>
-			</Link>
 			<Link
 				href="/items/create"
 				className={isActive("/items/create") ? "active" : ""}
 			>
 				<span className="btm-nav-label">New</span>
+			</Link>
+			<Link href="/history" className={isActive("/history") ? "active" : ""}>
+				<span className="btm-nav-label">History</span>
 			</Link>
 			<Link
 				href="/calendar"

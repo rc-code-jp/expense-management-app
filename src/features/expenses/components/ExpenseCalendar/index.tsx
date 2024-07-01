@@ -62,7 +62,6 @@ export function ExpenseCalendar({
 						href={`/history?date=${date}`}
 						prefetch={false}
 						className="block w-[calc(100%_/_7)] text-center hover:opacity-50"
-						onClick={(e) => !total[date] && e.preventDefault()}
 					>
 						<p>{day}</p>
 						<p className="h-10 font-bold text-primary text-xs">

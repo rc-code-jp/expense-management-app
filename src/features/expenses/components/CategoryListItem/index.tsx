@@ -32,19 +32,19 @@ export function CategoryListItem({
 	const style: React.CSSProperties = {
 		transform: CSS.Transform.toString(transform),
 		transition,
+		cursor: "default",
 		touchAction: "none", // スマホでスクロールしないようにする
 	};
 
 	return (
-		<li
-			className="mt-4"
-			ref={setNodeRef}
-			{...attributes}
-			{...listeners}
-			style={style}
-		>
+		<li className="mt-4" ref={setNodeRef} {...attributes} style={style}>
 			<div className="relative size-full rounded-md border border-primary/5 p-4 shadow-md">
-				<p>
+				<div className="flex flex-nowrap items-center gap-4">
+					<button type="button" className="z-10 space-y-1" {...listeners}>
+						<div className="h-0.5 w-4 bg-gray-600" />
+						<div className="h-0.5 w-4 bg-gray-600" />
+						<div className="h-0.5 w-4 bg-gray-600" />
+					</button>
 					<Link
 						prefetch={false}
 						href={`/categories/${item.id}`}
@@ -55,7 +55,7 @@ export function CategoryListItem({
 					>
 						{item.name}
 					</Link>
-				</p>
+				</div>
 				<form
 					action={deleteAction}
 					className="-translate-y-1/2 absolute top-1/2 right-2"
