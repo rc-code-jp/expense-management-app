@@ -40,7 +40,7 @@ export function ExpenseCalendar({
 		<div className="flex flex-row flex-wrap">
 			{[...Array(7)].map((_, w) => (
 				// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
-				<div key={w} className="w-[calc(100%_/_7)] text-center">
+				<div key={w} className="w-[calc(100%_/_7)] text-center font-bold">
 					{weekStr[w]}
 				</div>
 			))}
@@ -59,7 +59,7 @@ export function ExpenseCalendar({
 				return (
 					<Link
 						key={day}
-						href={`/history?date=${date}`}
+						href={`/items?date=${date}`}
 						prefetch={false}
 						className="block w-[calc(100%_/_7)] text-center hover:shadow-inner"
 					>

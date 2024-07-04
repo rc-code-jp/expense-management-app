@@ -33,7 +33,7 @@ export function CategoryForm({
 		const confirm = window.confirm("Are you sure?");
 		if (!confirm) return;
 		deleteDispatch(formData);
-		router.push("/history");
+		router.push("/items");
 	};
 
 	return (

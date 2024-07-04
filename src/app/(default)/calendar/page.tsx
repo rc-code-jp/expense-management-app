@@ -11,7 +11,7 @@ export default async function Page({
 	searchParams,
 }: {
 	searchParams: {
-		yearMonth: string; // y-m
+		yearMonth?: string; // y-m
 	};
 }) {
 	const session = await auth();
@@ -23,10 +23,10 @@ export default async function Page({
 
 	const date = getTimezoneNow();
 
-	const [year, month] = searchParams.yearMonth.split("-").map(Number);
-	if (year && month) {
-		date.setFullYear(year);
-		date.setMonth(month - 1);
+	const ym = searchParams.yearMonth?.split("-").map(Number);
+	if (ym?.at(0) && ym?.at(1)) {
+		date.setFullYear(ym[0]);
+		date.setMonth(ym[1] - 1);
 	}
 
 	const startDateStr = dateFns.format(date, "yyyy-MM-dd");
@@ -42,6 +42,9 @@ export default async function Page({
 				between(expenses.date, startDateStr, endDateStr),
 			),
 		);
+
+	const year = Number(dateFns.format(date, "yyyy"));
+	const month = Number(dateFns.format(date, "M"));
 
 	return (
 		<div>
