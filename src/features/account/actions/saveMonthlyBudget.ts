@@ -4,6 +4,7 @@ import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { users } from "@/database/schema";
 import { eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 
 export async function saveMonthlyBudget(data: FormData) {
 	const session = await auth();
@@ -27,6 +28,8 @@ export async function saveMonthlyBudget(data: FormData) {
 		.update(users)
 		.set({ monthlyBudget: body.monthlyBudget })
 		.where(eq(users.id, user.id));
+
+	revalidatePath("/report");
 
 	return { message: "" };
 }
