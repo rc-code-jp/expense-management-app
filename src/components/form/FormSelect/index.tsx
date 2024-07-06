@@ -1,3 +1,5 @@
+import { FormLabel } from "../FormLabel";
+
 export function FormSelect({
 	label,
 	name,
@@ -12,22 +14,20 @@ export function FormSelect({
 	required?: boolean;
 }) {
 	return (
-		<div className="mb-2">
-			<label className="flex flex-col">
-				{label && <span className="">{label}</span>}
-				<select
-					name={name}
-					defaultValue={defaultValue}
-					className="select select-bordered w-full"
-					required={required}
-				>
-					{options.map((option) => (
-						<option key={option.value} value={option.value}>
-							{option.text}
-						</option>
-					))}
-				</select>
-			</label>
+		<div className="form-item">
+			{label && <FormLabel>{label}</FormLabel>}
+			<select
+				name={name}
+				defaultValue={defaultValue}
+				className="select select-bordered w-full"
+				required={required}
+			>
+				{options.map((option) => (
+					<option key={option.value} value={option.value}>
+						{option.text}
+					</option>
+				))}
+			</select>
 		</div>
 	);
 }

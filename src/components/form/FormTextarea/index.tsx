@@ -1,3 +1,5 @@
+import { FormLabel } from "../FormLabel";
+
 export function FormTextarea({
 	label,
 	name,
@@ -12,17 +14,15 @@ export function FormTextarea({
 	required?: boolean;
 }) {
 	return (
-		<div className="mb-2">
-			<label className="flex flex-col">
-				{label && <span className="">{label}</span>}
-				<textarea
-					className="textarea textarea-bordered"
-					name={name}
-					defaultValue={defaultValue}
-					placeholder={placeholder}
-					required={required}
-				/>
-			</label>
+		<div className="form-item">
+			{label && <FormLabel>{label}</FormLabel>}
+			<textarea
+				className="textarea textarea-bordered"
+				name={name}
+				defaultValue={defaultValue}
+				placeholder={placeholder}
+				required={required}
+			/>
 		</div>
 	);
 }

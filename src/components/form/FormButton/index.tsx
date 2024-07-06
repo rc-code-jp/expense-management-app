@@ -15,7 +15,7 @@ export function FormButton({
 	const { pending } = useFormStatus();
 
 	return (
-		<div className="mb-2 flex justify-center">
+		<div className="form-item items-center">
 			<button
 				type={type}
 				className={clsx("btn btn-wide shadow-md", buttonClassName)}

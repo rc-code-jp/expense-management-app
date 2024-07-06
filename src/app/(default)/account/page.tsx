@@ -1,5 +1,6 @@
 import { auth } from "@/auth";
 import { FormButton } from "@/components/form/FormButton";
+import { FormLabel } from "@/components/form/FormLabel";
 import { FormText } from "@/components/form/FormText";
 import { PageTitle } from "@/components/layout/PageTitle";
 import { saveMonthlyBudget } from "@/features/account/actions/saveMonthlyBudget";
@@ -32,9 +33,9 @@ export default async function Page() {
 							</div>
 						</form>
 					</li>
-					<li className="mt-8">
+					<li className="mt-6">
 						<div>
-							<label>Category Setting</label>
+							<FormLabel>Category Setting</FormLabel>
 							<p className="mt-2 flex">
 								<Link href="/categories" className="btn btn-wide shadow-md">
 									Go Category Setting Page
@@ -44,7 +45,7 @@ export default async function Page() {
 					</li>
 					<li className="mt-8">
 						<div>
-							<label>Logout</label>
+							<FormLabel>Logout</FormLabel>
 							<p className="mt-2 flex">
 								<LogoutButton />
 							</p>

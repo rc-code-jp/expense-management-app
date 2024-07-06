@@ -11,20 +11,23 @@ export function BottomNav() {
 	};
 
 	return (
-		<div className="btm-nav right-auto left-auto md:w-[1024px]">
-			<Link href="/report" className={isActive("/report") ? "active" : ""}>
+		<div className="btm-nav right-auto left-auto h-12 bg-neutral text-neutral-content md:w-[1024px]">
+			<Link href="/report" className={isActive("/report") ? "bg-primary" : ""}>
 				<span className="btm-nav-label">Report</span>
 			</Link>
 			<Link
 				href="/items/create"
-				className={isActive("/items/create") ? "active" : ""}
+				className={isActive("/items/create") ? "bg-primary" : ""}
 			>
 				<span className="btm-nav-label">New</span>
 			</Link>
-			<Link href="/items" className={isActive("/items") ? "active" : ""}>
+			<Link href="/items" className={isActive("/items") ? "bg-primary" : ""}>
 				<span className="btm-nav-label">History</span>
 			</Link>
-			<Link href="/calendar" className={isActive("/calendar") ? "active" : ""}>
+			<Link
+				href="/calendar"
+				className={isActive("/calendar") ? "bg-primary" : ""}
+			>
 				<span className="btm-nav-label">Calendar</span>
 			</Link>
 		</div>
