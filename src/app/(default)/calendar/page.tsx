@@ -22,6 +22,7 @@ export default async function Page({
 	const user = session.user;
 
 	const date = getTimezoneNow();
+	date.setDate(1);
 
 	const ym = searchParams.yearMonth?.split("-").map(Number);
 	if (ym?.at(0) && ym?.at(1)) {
