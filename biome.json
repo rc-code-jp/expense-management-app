@@ -21,7 +21,8 @@
 				"useSortedClasses": "error"
 			},
 			"correctness": {
-				"noUnusedVariables": "error"
+				"noUnusedVariables": "error",
+				"noUnusedImports": "error"
 			},
 			"style": {
 				"useSelfClosingElements": "error"

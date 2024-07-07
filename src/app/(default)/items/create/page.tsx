@@ -3,9 +3,13 @@ import { PageTitle } from "@/components/layout/PageTitle";
 import { db } from "@/database/db";
 import { expenseCategories, type expenses } from "@/database/schema";
 import { ExpenseForm } from "@/features/expenses/components/ExpenseForm";
-import { dateFns, getTimezoneNow } from "@/lib/dateFns";
+import {
+	DATE_FORMAT,
+	TIME_FORMAT,
+	dateFns,
+	getTimezoneNow,
+} from "@/lib/dateFns";
 import { asc, desc, eq } from "drizzle-orm";
-import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function Page() {
@@ -23,8 +27,8 @@ export default async function Page() {
 		.orderBy(asc(expenseCategories.sort), desc(expenseCategories.createdAt));
 
 	const now = getTimezoneNow();
-	const nowDateString = dateFns.format(now, "yyyy-MM-dd");
-	const nowTimeString = dateFns.format(now, "HH:mm");
+	const nowDateString = dateFns.format(now, DATE_FORMAT);
+	const nowTimeString = dateFns.format(now, TIME_FORMAT);
 
 	const item: typeof expenses.$inferSelect = {
 		id: "",

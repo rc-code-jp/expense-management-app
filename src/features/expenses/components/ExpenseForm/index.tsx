@@ -11,7 +11,7 @@ import type { expenseCategories, expenses } from "@/database/schema";
 import { formActionState } from "@/features/expenses/actionState/formActionState";
 import { saveExpense } from "@/features/expenses/actions/saveExpense";
 import { useRouter } from "next/navigation";
-import { useFormState, useFormStatus } from "react-dom";
+import { useFormState } from "react-dom";
 import { deleteExpense } from "../../actions/deleteExpense";
 
 type CategoryItem = typeof expenseCategories.$inferSelect;

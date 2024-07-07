@@ -3,7 +3,7 @@
 import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenseCategories, expenses } from "@/database/schema";
-import { dateFns } from "@/lib/dateFns";
+import { DATE_FORMAT, dateFns } from "@/lib/dateFns";
 import { and, desc, eq } from "drizzle-orm";
 
 type Item = {
@@ -30,7 +30,7 @@ export default async function getExpenseList(params: {
 	let dateStr = "";
 	if (params.date) {
 		const date = new Date(params.date);
-		dateStr = dateFns.format(date, "yyyy-MM-dd");
+		dateStr = dateFns.format(date, DATE_FORMAT);
 		where.push(eq(expenses.date, dateStr));
 	}
 

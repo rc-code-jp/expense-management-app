@@ -3,7 +3,7 @@ import { PageTitle } from "@/components/layout/PageTitle";
 import { db } from "@/database/db";
 import { expenses } from "@/database/schema";
 import { ExpenseCalendar } from "@/features/expenses/components/ExpenseCalendar";
-import { dateFns, getTimezoneNow } from "@/lib/dateFns";
+import { DATE_FORMAT, dateFns, getTimezoneNow } from "@/lib/dateFns";
 import { and, between, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
@@ -30,8 +30,8 @@ export default async function Page({
 		date.setMonth(ym[1] - 1);
 	}
 
-	const startDateStr = dateFns.format(date, "yyyy-MM-dd");
-	const endDateStr = dateFns.format(dateFns.lastDayOfMonth(date), "yyyy-MM-dd");
+	const startDateStr = dateFns.format(date, DATE_FORMAT);
+	const endDateStr = dateFns.format(dateFns.lastDayOfMonth(date), DATE_FORMAT);
 
 	// 取得（集計用なので並び替えない）
 	const items = await db

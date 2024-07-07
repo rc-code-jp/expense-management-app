@@ -1,7 +1,7 @@
 "use client";
 
 import type { expenses } from "@/database/schema";
-import { dateFns } from "@/lib/dateFns";
+import { DATE_FORMAT, dateFns } from "@/lib/dateFns";
 import Link from "next/link";
 
 export function ExpenseCalendar({
@@ -17,8 +17,8 @@ export function ExpenseCalendar({
 
 	// 日付
 	const date = new Date(year, month - 1, 1);
-	const startDateStr = dateFns.format(date, "yyyy-MM-dd");
-	const endDateStr = dateFns.format(dateFns.lastDayOfMonth(date), "yyyy-MM-dd");
+	const startDateStr = dateFns.format(date, DATE_FORMAT);
+	const endDateStr = dateFns.format(dateFns.lastDayOfMonth(date), DATE_FORMAT);
 
 	// 日付毎に集計
 	const total = items.reduce(
@@ -54,7 +54,7 @@ export function ExpenseCalendar({
 				const day = dateFns.format(new Date(year, month - 1, i + 1), "d");
 				const date = dateFns.format(
 					new Date(year, month - 1, i + 1),
-					"yyyy-MM-dd",
+					DATE_FORMAT,
 				);
 				return (
 					<Link

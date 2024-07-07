@@ -9,4 +9,7 @@ export const getTimezoneNow = (tz = "Asia/Tokyo") => {
 	return toZonedTime(new Date(), tz);
 };
 
+export const DATE_FORMAT = "yyyy-MM-dd";
+export const TIME_FORMAT = "HH:mm";
+
 export const dateFns = _dateFns;

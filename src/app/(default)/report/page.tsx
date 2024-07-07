@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenses } from "@/database/schema";
 import { ReportItem } from "@/features/expenses/components/ReportItem";
-import { dateFns, getTimezoneNow } from "@/lib/dateFns";
+import { DATE_FORMAT, dateFns, getTimezoneNow } from "@/lib/dateFns";
 import { and, between, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
@@ -14,14 +14,12 @@ export default async function Page() {
 
 	const user = session.user;
 
-	const dateFormat = "yyyy-MM-dd";
-
 	// 今月の1日を取得
 	const firstDay = dateFns.startOfMonth(getTimezoneNow());
-	const firstDayString = dateFns.format(firstDay, dateFormat);
+	const firstDayString = dateFns.format(firstDay, DATE_FORMAT);
 	// 今月の最終日を取得
 	const lastDay = dateFns.endOfMonth(firstDay);
-	const lastDayString = dateFns.format(lastDay, dateFormat);
+	const lastDayString = dateFns.format(lastDay, DATE_FORMAT);
 
 	// 取得（集計用なので並び替えない）
 	const items = await db
@@ -35,17 +33,17 @@ export default async function Page() {
 		);
 
 	const now = getTimezoneNow();
-	const todayStr = dateFns.format(now, dateFormat);
+	const todayStr = dateFns.format(now, DATE_FORMAT);
 	const startOfWeek = dateFns.startOfWeek(now);
 	const weekStartStr =
 		startOfWeek.getMonth() !== now.getMonth()
-			? dateFns.format(dateFns.startOfMonth(now), dateFormat)
-			: dateFns.format(startOfWeek, dateFormat);
+			? dateFns.format(dateFns.startOfMonth(now), DATE_FORMAT)
+			: dateFns.format(startOfWeek, DATE_FORMAT);
 	const endOfWeek = dateFns.endOfWeek(now);
 	const weekEndStr =
 		endOfWeek.getMonth() !== now.getMonth()
-			? dateFns.format(dateFns.endOfMonth(now), dateFormat)
-			: dateFns.format(endOfWeek, dateFormat);
+			? dateFns.format(dateFns.endOfMonth(now), DATE_FORMAT)
+			: dateFns.format(endOfWeek, DATE_FORMAT);
 
 	// トータル
 	const monthSum = items.reduce((sum, v) => sum + v.amount, 0);
