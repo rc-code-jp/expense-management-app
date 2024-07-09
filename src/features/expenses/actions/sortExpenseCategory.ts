@@ -3,7 +3,7 @@
 import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenseCategories } from "@/database/schema";
-import { and, eq } from "drizzle-orm";
+import { and, desc, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { INITIAL_SORT_VALUE } from "../utils/categorySort";
 
@@ -55,6 +55,17 @@ export async function sortExpenseCategory(params: {
 			return { message: "Task not found" };
 		}
 		nextItemSort = Number(nextItem.sort);
+	} else {
+		const maxSortItem = (
+			await db
+				.select()
+				.from(expenseCategories)
+				.where(eq(expenseCategories.userId, user.id))
+				.orderBy(desc(expenseCategories.sort))
+				.limit(1)
+		)[0];
+		const maxSort = maxSortItem ? Number(maxSortItem.sort) : 0;
+		nextItemSort = maxSort + INITIAL_SORT_VALUE;
 	}
 
 	const newSort = (prevItemSort + nextItemSort) / 2;

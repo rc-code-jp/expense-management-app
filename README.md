@@ -21,7 +21,7 @@ cp ./env/.env.example .env.local
 ### ローカルのデータベースを起動
 
 ```
-docker-compose up -d
+docker compose up -d
 ```
 
 [PgAdmin](http://localhost:8080)
