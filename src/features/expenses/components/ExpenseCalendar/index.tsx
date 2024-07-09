@@ -1,7 +1,7 @@
 "use client";
 
 import type { expenses } from "@/database/schema";
-import { DATE_FORMAT, dateFns } from "@/lib/dateFns";
+import { DATE_FORMAT, WEEK_ARRAY, dateFns } from "@/lib/dateFns";
 import Link from "next/link";
 
 export function ExpenseCalendar({
@@ -13,8 +13,6 @@ export function ExpenseCalendar({
 	year: number;
 	month: number;
 }) {
-	const weekStr = ["月", "火", "水", "木", "金", "土", "日"];
-
 	// 日付
 	const date = new Date(year, month - 1, 1);
 	const startDateStr = dateFns.format(date, DATE_FORMAT);
@@ -41,7 +39,7 @@ export function ExpenseCalendar({
 			{[...Array(7)].map((_, w) => (
 				// biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
 				<div key={w} className="w-[calc(100%_/_7)] text-center font-bold">
-					{weekStr[w]}
+					{WEEK_ARRAY[w]}
 				</div>
 			))}
 			{[...Array(startPad)].map((_, i) => (

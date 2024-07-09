@@ -32,8 +32,8 @@ export function ExpenseList({
 	};
 
 	const getMoreItems = async () => {
-		if (noMore) return;
-		if (busy) return;
+		if (busy || noMore) return;
+		setBusy(true);
 		const offset = displayItems.length;
 		const res = await getExpenseList({ offset, limit: EXPENSE_LIST_LIMIT });
 		setDisplayItems([...displayItems, ...res.items]);

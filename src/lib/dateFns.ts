@@ -12,4 +12,6 @@ export const getTimezoneNow = (tz = "Asia/Tokyo") => {
 export const DATE_FORMAT = "yyyy-MM-dd";
 export const TIME_FORMAT = "HH:mm";
 
+export const WEEK_ARRAY = ["月", "火", "水", "木", "金", "土", "日"];
+
 export const dateFns = _dateFns;
