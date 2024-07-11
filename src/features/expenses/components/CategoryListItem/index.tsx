@@ -41,7 +41,7 @@ export function CategoryListItem({
 				<div className="flex flex-nowrap items-center gap-4">
 					<button
 						type="button"
-						className="z-10 cursor-move touch-none space-y-1"
+						className="z-10 cursor-move touch-none select-none space-y-1"
 						{...listeners}
 					>
 						<div className="h-0.5 w-4 bg-gray-600" />
