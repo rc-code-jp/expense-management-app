@@ -33,14 +33,17 @@ export function CategoryListItem({
 		transform: CSS.Transform.toString(transform),
 		transition,
 		cursor: "default",
-		touchAction: "none", // スマホでスクロールしないようにする
 	};
 
 	return (
 		<li className="mt-4" ref={setNodeRef} {...attributes} style={style}>
 			<div className="relative size-full rounded-md border border-primary/5 p-4 shadow-md">
 				<div className="flex flex-nowrap items-center gap-4">
-					<button type="button" className="z-10 space-y-1" {...listeners}>
+					<button
+						type="button"
+						className="z-10 cursor-move touch-none space-y-1"
+						{...listeners}
+					>
 						<div className="h-0.5 w-4 bg-gray-600" />
 						<div className="h-0.5 w-4 bg-gray-600" />
 						<div className="h-0.5 w-4 bg-gray-600" />
