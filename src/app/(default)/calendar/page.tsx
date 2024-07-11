@@ -5,7 +5,7 @@ import { expenseCategories, expenses } from "@/database/schema";
 import { CategoryFilter } from "@/features/expenses/components/CategoryFilter";
 import { ExpenseCalendar } from "@/features/expenses/components/ExpenseCalendar";
 import { DATE_FORMAT, dateFns, getTimezoneNow } from "@/lib/dateFns";
-import { and, between, eq } from "drizzle-orm";
+import { and, asc, between, desc, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
 export default async function Page({
@@ -61,7 +61,8 @@ export default async function Page({
 	const categories = await db
 		.select()
 		.from(expenseCategories)
-		.where(eq(expenseCategories.userId, user.id));
+		.where(eq(expenseCategories.userId, user.id))
+		.orderBy(asc(expenseCategories.sort), desc(expenseCategories.createdAt));
 
 	return (
 		<div>
