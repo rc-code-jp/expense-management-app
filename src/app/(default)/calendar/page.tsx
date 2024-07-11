@@ -1,7 +1,8 @@
 import { auth } from "@/auth";
 import { PageTitle } from "@/components/layout/PageTitle";
 import { db } from "@/database/db";
-import { expenses } from "@/database/schema";
+import { expenseCategories, expenses } from "@/database/schema";
+import { CategoryFilter } from "@/features/expenses/components/CategoryFilter";
 import { ExpenseCalendar } from "@/features/expenses/components/ExpenseCalendar";
 import { DATE_FORMAT, dateFns, getTimezoneNow } from "@/lib/dateFns";
 import { and, between, eq } from "drizzle-orm";
@@ -12,6 +13,7 @@ export default async function Page({
 }: {
 	searchParams: {
 		yearMonth?: string; // y-m
+		category?: string; // expenseCategories.id
 	};
 }) {
 	const session = await auth();
@@ -33,25 +35,46 @@ export default async function Page({
 	const startDateStr = dateFns.format(date, DATE_FORMAT);
 	const endDateStr = dateFns.format(dateFns.lastDayOfMonth(date), DATE_FORMAT);
 
+	// 条件
+	const where = [
+		eq(expenses.userId, user.id),
+		between(expenses.date, startDateStr, endDateStr),
+	];
+
+	// 条件にカテゴリーを追加
+	if (searchParams.category) {
+		where.push(eq(expenses.categoryId, searchParams.category));
+	}
+
 	// 取得（集計用なので並び替えない）
 	const items = await db
 		.select()
 		.from(expenses)
-		.where(
-			and(
-				eq(expenses.userId, user.id),
-				between(expenses.date, startDateStr, endDateStr),
-			),
-		);
+		.where(and(...where));
 
 	const year = Number(dateFns.format(date, "yyyy"));
 	const month = Number(dateFns.format(date, "M"));
+
+	const total = items.reduce((sum, item) => sum + item.amount, 0);
+
+	// カテゴリー取得
+	const categories = await db
+		.select()
+		.from(expenseCategories)
+		.where(eq(expenseCategories.userId, user.id));
 
 	return (
 		<div>
 			<PageTitle>
 				{year}-{month}
 			</PageTitle>
+			<div className="mb-2 flex flex-nowrap justify-between pl-3">
+				<p>Total: {total.toLocaleString()}</p>
+				<CategoryFilter
+					items={categories}
+					initialValue={searchParams.category}
+				/>
+			</div>
 			<ExpenseCalendar items={items} year={year} month={month} />
 		</div>
 	);
