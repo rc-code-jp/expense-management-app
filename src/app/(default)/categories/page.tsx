@@ -26,8 +26,6 @@ export default async function Page() {
 		)
 		.orderBy(asc(expenseCategories.sort), desc(expenseCategories.createdAt));
 
-	console.dir(items);
-
 	return (
 		<div>
 			<PageTitle>Category</PageTitle>
