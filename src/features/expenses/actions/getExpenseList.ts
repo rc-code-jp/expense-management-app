@@ -49,6 +49,11 @@ export default async function getExpenseList(params: {
 		where.push(between(expenses.date, startDateStr, endDateStr));
 	}
 
+	// カテゴリー指定
+	if (params.categoryId) {
+		where.push(eq(expenses.categoryId, params.categoryId));
+	}
+
 	const items = await db
 		.select()
 		.from(expenses)

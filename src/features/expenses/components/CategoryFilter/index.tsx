@@ -20,7 +20,7 @@ export function CategoryFilter({
 		setValue(e.target.value);
 		const url = new URL(location.href);
 		url.searchParams.set("category", e.target.value);
-		router.push(url.href);
+		router.replace(url.href);
 	};
 
 	return (
@@ -30,7 +30,7 @@ export function CategoryFilter({
 				value={value}
 				onChange={handleChange}
 			>
-				<option>All Category</option>
+				<option value={""}>All Category</option>
 				{items.map((item) => (
 					<option key={item.id} value={item.id}>
 						{item.name}

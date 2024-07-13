@@ -1,9 +1,8 @@
 import { auth } from "@/auth";
 import { PageTitle } from "@/components/layout/PageTitle";
-import { db } from "@/database/db";
-import { expenseCategories } from "@/database/schema";
+import getExpenseCategoryList from "@/features/expenses/actions/getExpenseCategoryList";
 import { CategoryList } from "@/features/expenses/components/CategoryList";
-import { and, asc, desc, eq, isNull } from "drizzle-orm";
+import {} from "drizzle-orm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -13,18 +12,7 @@ export default async function Page() {
 		return redirect("/auth/login");
 	}
 
-	const user = session.user;
-
-	const items = await db
-		.select()
-		.from(expenseCategories)
-		.where(
-			and(
-				eq(expenseCategories.userId, user.id),
-				isNull(expenseCategories.deletedAt),
-			),
-		)
-		.orderBy(asc(expenseCategories.sort), desc(expenseCategories.createdAt));
+	const items = await getExpenseCategoryList();
 
 	return (
 		<div>

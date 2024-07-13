@@ -1,11 +1,12 @@
 import { auth } from "@/auth";
 import { PageTitle } from "@/components/layout/PageTitle";
 import { db } from "@/database/db";
-import { expenseCategories, expenses } from "@/database/schema";
+import { expenses } from "@/database/schema";
+import getExpenseCategoryList from "@/features/expenses/actions/getExpenseCategoryList";
 import { CategoryFilter } from "@/features/expenses/components/CategoryFilter";
 import { ExpenseCalendar } from "@/features/expenses/components/ExpenseCalendar";
 import { DATE_FORMAT, dateFns, getTimezoneNow } from "@/lib/dateFns";
-import { and, asc, between, desc, eq } from "drizzle-orm";
+import { and, between, eq } from "drizzle-orm";
 import { redirect } from "next/navigation";
 
 export default async function Page({
@@ -58,18 +59,14 @@ export default async function Page({
 	const total = items.reduce((sum, item) => sum + item.amount, 0);
 
 	// カテゴリー取得
-	const categories = await db
-		.select()
-		.from(expenseCategories)
-		.where(eq(expenseCategories.userId, user.id))
-		.orderBy(asc(expenseCategories.sort), desc(expenseCategories.createdAt));
+	const categories = await getExpenseCategoryList();
 
 	return (
 		<div>
 			<PageTitle>
 				{year}-{month}
 			</PageTitle>
-			<div className="mb-2 flex flex-nowrap justify-between pl-3">
+			<div className="mb-2 flex flex-nowrap items-center justify-between pl-3">
 				<p>Total: {total.toLocaleString()}</p>
 				<CategoryFilter
 					items={categories}

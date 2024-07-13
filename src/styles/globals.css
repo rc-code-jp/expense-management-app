@@ -9,15 +9,19 @@
 }
 
 @layer utilities {
+  /* iPhoneなどのSafe-Area分のpadding */
   .pt-safe {
     padding-top: env(safe-area-inset-top);
   }
-
   .pb-safe {
     padding-bottom: env(safe-area-inset-bottom);
   }
-
   .py-safe {
     @apply pt-safe pb-safe;
+  }
+
+  /* PCサイズの設定 */
+  .md-width {
+    @apply md:w-[1024px];
   }
 }

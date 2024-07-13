@@ -35,7 +35,7 @@ export default function RootLayout({
 	return (
 		<html lang="ja">
 			<body className={inter.className}>
-				<div className="mx-auto md:w-[1024px]">
+				<div className="md-width mx-auto">
 					<NextAuthProvider>{children}</NextAuthProvider>
 				</div>
 			</body>
