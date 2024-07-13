@@ -1,13 +1,22 @@
 import { NextAuthProvider } from "@/app/providers";
 import type { Metadata, Viewport } from "next";
 import "@/styles/globals.css";
+import { APP_NAME } from "@/utils/constants";
+import { manifestPath } from "@/utils/pwa";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-	title: "My Expenditure",
-	description: "My Expenditure",
+	title: APP_NAME,
+	description: APP_NAME,
+	manifest: manifestPath,
+	icons: {
+		apple: {
+			url: "/apple-touch-icon.png",
+			sizes: "180x180",
+		},
+	},
 };
 
 export const viewport: Viewport = {

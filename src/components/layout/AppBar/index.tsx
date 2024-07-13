@@ -1,4 +1,5 @@
 "use client";
+import { APP_NAME } from "@/utils/constants";
 import Link from "next/link";
 
 export function AppBar({
@@ -10,7 +11,7 @@ export function AppBar({
 		<div className="navbar fixed z-30 mb-4 h-12 min-h-12 rounded-b-lg bg-neutral text-neutral-content shadow-xl md:w-[1024px]">
 			<div className="flex-1">
 				<Link href="/" prefetch={false} className="btn btn-ghost text-xl">
-					My Expenditure
+					{APP_NAME}
 				</Link>
 			</div>
 			<Link
