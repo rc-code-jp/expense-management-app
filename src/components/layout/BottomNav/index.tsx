@@ -11,7 +11,7 @@ export function BottomNav() {
 	};
 
 	return (
-		<div className="btm-nav right-auto left-auto h-12 bg-neutral pb-safe text-neutral-content md:w-[1024px]">
+		<div className="btm-nav right-auto left-auto box-content h-12 bg-neutral pb-safe text-neutral-content md:w-[1024px]">
 			<Link href="/report" className={isActive("/report") ? "bg-primary" : ""}>
 				<span className="btm-nav-label">Report</span>
 			</Link>
