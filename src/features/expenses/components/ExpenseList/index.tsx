@@ -3,6 +3,7 @@
 import type { expenseCategories, expenses } from "@/database/schema";
 import { formActionState } from "@/features/expenses/actionState/formActionState";
 import { deleteExpense } from "@/features/expenses/actions/deleteExpense";
+import { dateFns } from "@/lib/dateFns";
 import Link from "next/link";
 import { useState } from "react";
 import { useFormState } from "react-dom";
@@ -16,8 +17,10 @@ type Item = {
 
 export function ExpenseList({
 	items,
+	searchParams,
 }: {
 	items: Item[];
+	searchParams?: { startDate?: string; endDate?: string; category?: string };
 }) {
 	const [displayItems, setDisplayItems] = useState<Item[]>(items);
 	const [noMore, setNoMore] = useState(items.length < EXPENSE_LIST_LIMIT);
@@ -35,7 +38,11 @@ export function ExpenseList({
 		if (busy || noMore) return;
 		setBusy(true);
 		const offset = displayItems.length;
-		const res = await getExpenseList({ offset, limit: EXPENSE_LIST_LIMIT });
+		const res = await getExpenseList({
+			offset,
+			limit: EXPENSE_LIST_LIMIT,
+			...searchParams,
+		});
 		setDisplayItems([...displayItems, ...res.items]);
 		setNoMore(res.items.length < EXPENSE_LIST_LIMIT);
 		setBusy(false);
@@ -51,7 +58,9 @@ export function ExpenseList({
 							href={`/items/${item.expenses.id}`}
 							className="block size-full"
 						>
-							<div className="font-bold text-xs">{item.expenses.date}</div>
+							<div className="font-bold text-xs">
+								{dateFns.format(new Date(item.expenses.date), "yyyy-MM-dd E")}
+							</div>
 							<div className="mt-1 font-bold text-md">
 								{item.expenses.amount.toLocaleString()}
 							</div>

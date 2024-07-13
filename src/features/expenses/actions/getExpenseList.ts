@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenseCategories, expenses } from "@/database/schema";
 import { DATE_FORMAT, dateFns } from "@/lib/dateFns";
-import { and, desc, eq } from "drizzle-orm";
+import { and, between, desc, eq } from "drizzle-orm";
 
 type Item = {
 	expenses: typeof expenses.$inferSelect;
@@ -14,11 +14,23 @@ type Item = {
 export default async function getExpenseList(params: {
 	offset: number;
 	limit: number;
-	date?: string;
-}): Promise<{ items: Item[]; date: string }> {
+	startDate?: string;
+	endDate?: string;
+	categoryId?: string;
+}): Promise<{
+	message?: string;
+	items: Item[];
+	startDate?: string;
+	endDate?: string;
+}> {
+	// endDateがある場合はstartDateも必須
+	if (params.endDate && !params.startDate) {
+		return { message: "startDate is required", items: [] };
+	}
+
 	const session = await auth();
 	if (!session) {
-		return { items: [], date: "" };
+		return { items: [] };
 	}
 
 	const user = session.user;
@@ -27,11 +39,14 @@ export default async function getExpenseList(params: {
 	const where = [eq(expenses.userId, user.id)];
 
 	// 日付指定
-	let dateStr = "";
-	if (params.date) {
-		const date = new Date(params.date);
-		dateStr = dateFns.format(date, DATE_FORMAT);
-		where.push(eq(expenses.date, dateStr));
+	let startDateStr = "";
+	let endDateStr = "";
+	if (params.startDate) {
+		const _startDate = new Date(params.startDate);
+		const _endDate = params.endDate ? new Date(params.endDate) : _startDate;
+		startDateStr = dateFns.format(_startDate, DATE_FORMAT);
+		endDateStr = dateFns.format(_endDate, DATE_FORMAT);
+		where.push(between(expenses.date, startDateStr, endDateStr));
 	}
 
 	const items = await db
@@ -43,5 +58,5 @@ export default async function getExpenseList(params: {
 		.offset(params.offset)
 		.limit(params.limit);
 
-	return { items: items, date: dateStr };
+	return { items: items, startDate: startDateStr, endDate: endDateStr };
 }
