@@ -3,3 +3,4 @@
  * 画像：https://cloudparker.com/tools/pwa-app-icon-generator
  */
 export const manifestPath = "/manifest.json";
+export const themeColor = "#2E282A";

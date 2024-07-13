@@ -7,3 +7,17 @@
     @apply mb-3 flex flex-col;
   }
 }
+
+@layer utilities {
+  .pt-safe {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .py-safe {
+    @apply pt-safe pb-safe;
+  }
+}
