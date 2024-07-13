@@ -3,7 +3,7 @@
 import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenseCategories } from "@/database/schema";
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, isNull } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { INITIAL_SORT_VALUE } from "../utils/categorySort";
 
@@ -60,7 +60,12 @@ export async function sortExpenseCategory(params: {
 			await db
 				.select()
 				.from(expenseCategories)
-				.where(eq(expenseCategories.userId, user.id))
+				.where(
+					and(
+						eq(expenseCategories.userId, user.id),
+						isNull(expenseCategories.deletedAt),
+					),
+				)
 				.orderBy(desc(expenseCategories.sort))
 				.limit(1)
 		)[0];

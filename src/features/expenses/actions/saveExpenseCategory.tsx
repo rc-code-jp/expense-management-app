@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenseCategories } from "@/database/schema";
 import type { FormActionState } from "@/features/expenses/actionState/formActionState";
-import { and, desc, eq } from "drizzle-orm";
+import { and, desc, eq, isNull } from "drizzle-orm";
 import { redirect } from "next/navigation";
 import { INITIAL_SORT_VALUE } from "../utils/categorySort";
 
@@ -49,7 +49,12 @@ export async function saveExpenseCategory(
 			await db
 				.select()
 				.from(expenseCategories)
-				.where(eq(expenseCategories.userId, user.id))
+				.where(
+					and(
+						eq(expenseCategories.userId, user.id),
+						isNull(expenseCategories.deletedAt),
+					),
+				)
 				.orderBy(desc(expenseCategories.sort))
 				.limit(1)
 		)[0];
