@@ -85,6 +85,7 @@ export function ExpenseForm({
 			</form>
 			{item.id && (
 				<form action={deleteAction} className="mt-8 block">
+					<input type="hidden" name="id" defaultValue={item.id ?? ""} />
 					<FormButton type="submit" buttonClassName="text-error btn-ghost">
 						Delete Item
 					</FormButton>

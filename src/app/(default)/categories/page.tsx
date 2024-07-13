@@ -3,7 +3,7 @@ import { PageTitle } from "@/components/layout/PageTitle";
 import { db } from "@/database/db";
 import { expenseCategories } from "@/database/schema";
 import { CategoryList } from "@/features/expenses/components/CategoryList";
-import { asc, desc, eq } from "drizzle-orm";
+import { and, asc, desc, eq, isNull } from "drizzle-orm";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -18,8 +18,15 @@ export default async function Page() {
 	const items = await db
 		.select()
 		.from(expenseCategories)
-		.where(eq(expenseCategories.userId, user.id))
+		.where(
+			and(
+				eq(expenseCategories.userId, user.id),
+				isNull(expenseCategories.deletedAt),
+			),
+		)
 		.orderBy(asc(expenseCategories.sort), desc(expenseCategories.createdAt));
+
+	console.dir(items);
 
 	return (
 		<div>

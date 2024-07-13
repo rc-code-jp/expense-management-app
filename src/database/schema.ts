@@ -134,6 +134,7 @@ export const expenseCategories = pgTable("expenseCategories", {
 	name: text("name").notNull(),
 	color: text("color"),
 	sort: decimal("sort").notNull(),
+	deletedAt: timestamp("deletedAt", { mode: "date" }),
 	createdAt: timestamp("createdAt", { mode: "date" }).$defaultFn(
 		() => new Date(),
 	),

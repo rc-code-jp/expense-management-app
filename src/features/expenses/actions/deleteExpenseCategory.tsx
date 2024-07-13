@@ -22,8 +22,10 @@ export async function deleteExpenseCategory(
 
 	const user = session.user;
 
+	// 論理削除
 	await db
-		.delete(expenseCategories)
+		.update(expenseCategories)
+		.set({ deletedAt: new Date() })
 		.where(
 			and(
 				eq(expenseCategories.userId, user.id),
