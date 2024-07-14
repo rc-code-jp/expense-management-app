@@ -4,6 +4,7 @@ import type { expenseCategories, expenses } from "@/database/schema";
 import { formActionState } from "@/features/expenses/actionState/formActionState";
 import { deleteExpense } from "@/features/expenses/actions/deleteExpense";
 import { dateFns } from "@/lib/dateFns";
+import { swal } from "@/lib/sweetalert";
 import Link from "next/link";
 import { useState } from "react";
 import { useFormState } from "react-dom";
@@ -28,9 +29,11 @@ export function ExpenseList({
 
 	const [, formDispatch] = useFormState(deleteExpense, formActionState);
 
-	const deleteAction = (formData: FormData) => {
-		const confirm = window.confirm("Are you sure?");
-		if (!confirm) return;
+	const deleteAction = async (formData: FormData) => {
+		const { isConfirmed } = await swal.confirm({
+			text: "Are you sure?",
+		});
+		if (!isConfirmed) return;
 		formDispatch(formData);
 	};
 

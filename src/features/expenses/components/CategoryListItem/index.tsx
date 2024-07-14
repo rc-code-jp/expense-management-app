@@ -1,6 +1,7 @@
 "use client";
 
 import type { expenseCategories } from "@/database/schema";
+import { swal } from "@/lib/sweetalert";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import Link from "next/link";
@@ -20,9 +21,11 @@ export function CategoryListItem({
 		formActionState,
 	);
 
-	const deleteAction = (formData: FormData) => {
-		const confirm = window.confirm("Are you sure?");
-		if (!confirm) return;
+	const deleteAction = async (formData: FormData) => {
+		const { isConfirmed } = await swal.confirm({
+			text: "Are you sure?",
+		});
+		if (!isConfirmed) return;
 		formDispatch(formData);
 	};
 
