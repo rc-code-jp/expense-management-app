@@ -10,6 +10,7 @@ import { FormTime } from "@/components/form/FormTime";
 import type { expenseCategories, expenses } from "@/database/schema";
 import { formActionState } from "@/features/expenses/actionState/formActionState";
 import { saveExpense } from "@/features/expenses/actions/saveExpense";
+import { swal } from "@/lib/sweetalert";
 import { useRouter } from "next/navigation";
 import { useFormState } from "react-dom";
 import { deleteExpense } from "../../actions/deleteExpense";
@@ -30,9 +31,11 @@ export function ExpenseForm({
 
 	const [, deleteDispatch] = useFormState(deleteExpense, formActionState);
 
-	const deleteAction = (formData: FormData) => {
-		const confirm = window.confirm("Are you sure?");
-		if (!confirm) return;
+	const deleteAction = async (formData: FormData) => {
+		const { isConfirmed } = await swal.confirm({
+			text: "Are you sure?",
+		});
+		if (!isConfirmed) return;
 		deleteDispatch(formData);
 		router.push("/items");
 	};

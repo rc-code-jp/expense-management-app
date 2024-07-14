@@ -6,6 +6,7 @@ import { FormText } from "@/components/form/FormText";
 import type { expenseCategories } from "@/database/schema";
 import { formActionState } from "@/features/expenses/actionState/formActionState";
 import { saveExpenseCategory } from "@/features/expenses/actions/saveExpenseCategory";
+import { swal } from "@/lib/sweetalert";
 import { useRouter } from "next/navigation";
 import { useFormState } from "react-dom";
 import { deleteExpenseCategory } from "../../actions/deleteExpenseCategory";
@@ -29,9 +30,11 @@ export function CategoryForm({
 		formActionState,
 	);
 
-	const deleteAction = (formData: FormData) => {
-		const confirm = window.confirm("Are you sure?");
-		if (!confirm) return;
+	const deleteAction = async (formData: FormData) => {
+		const { isConfirmed } = await swal.confirm({
+			text: "Are you sure?",
+		});
+		if (!isConfirmed) return;
 		deleteDispatch(formData);
 		router.push("/items");
 	};

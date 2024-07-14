@@ -36,6 +36,9 @@ export default async function Page({
 
 	const categories = await getExpenseCategoryList();
 
+	// コンポーネントのキーに使っているがもっと良い方法があるはず
+	const requestTime = new Date().getTime();
+
 	return (
 		<div>
 			<PageTitle>History</PageTitle>
@@ -48,7 +51,7 @@ export default async function Page({
 			</div>
 			<ExpenseList
 				items={res.items}
-				key={searchParams.category}
+				key={requestTime}
 				searchParams={{
 					startDate: res.startDate,
 					endDate: res.endDate,
