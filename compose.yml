@@ -3,7 +3,7 @@ services:
     image: postgres:16
     ports:
       - "5432:5432"
-    restart: always
+    restart: "no"
     environment:
       POSTGRES_USER: user
       POSTGRES_PASSWORD: password
@@ -15,6 +15,7 @@ services:
     image: dpage/pgadmin4:8.4
     ports:
       - 8080:80
+    restart: "no"
     volumes:
       - pgadmin-data:/var/lib/pgadmin
       - ./docker/postgres/servers.json:/pgadmin4/servers.json

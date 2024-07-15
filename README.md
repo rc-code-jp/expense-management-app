@@ -5,6 +5,7 @@
 - [Next.js App Router](https://nextjs.org/docs/app)
 - [DaisyUI](https://daisyui.com/components/button/)
 - [Tailwind](https://tailwindcss.com/)
+- [Icon - HeroIcons](https://heroicons.com/)
 
 ## コマンド
 
