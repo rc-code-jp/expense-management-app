@@ -32,12 +32,12 @@ const confirm = (params?: {
 	});
 };
 
-const alert = (text: string, icon: SweetAlertIcon = "success") => {
+const alert = (params: { text: string; icon?: SweetAlertIcon }) => {
 	return base.fire({
 		title: " ",
-		icon,
+		icon: params.icon ?? "success",
 		confirmButtonText: "OK",
-		text,
+		text: params.text,
 	});
 };
 

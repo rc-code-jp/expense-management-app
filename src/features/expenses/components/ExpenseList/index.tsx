@@ -1,13 +1,11 @@
 "use client";
 
 import type { expenseCategories, expenses } from "@/database/schema";
-import { formActionState } from "@/features/expenses/actionState/formActionState";
-import { deleteExpense } from "@/features/expenses/actions/deleteExpense";
 import { dateFns } from "@/lib/dateFns";
 import { swal } from "@/lib/sweetalert";
 import Link from "next/link";
 import { useState } from "react";
-import { useFormState } from "react-dom";
+import { deleteExpense } from "../../actions/deleteExpense";
 import getExpenseList from "../../actions/getExpenseList";
 import { EXPENSE_LIST_LIMIT } from "../../utils/expenseList";
 
@@ -25,21 +23,30 @@ export function ExpenseList({
 }) {
 	const [displayItems, setDisplayItems] = useState<Item[]>(items);
 	const [noMore, setNoMore] = useState(items.length < EXPENSE_LIST_LIMIT);
-	const [busy, setBusy] = useState(false);
+	const [moreBusy, setMoreBusy] = useState(false);
+	const [deleteBusyId, setDeleteBusyId] = useState("");
 
-	const [, formDispatch] = useFormState(deleteExpense, formActionState);
-
-	const deleteAction = async (formData: FormData) => {
-		const { isConfirmed } = await swal.confirm({
-			text: "Are you sure?",
-		});
-		if (!isConfirmed) return;
-		formDispatch(formData);
+	const deleteAction = async (id: string) => {
+		try {
+			const { isConfirmed } = await swal.confirm({
+				text: "Are you sure?",
+			});
+			if (!isConfirmed) return;
+			setDeleteBusyId(id);
+			await deleteExpense(id);
+			setDisplayItems(() => displayItems.filter((v) => v.expenses.id !== id));
+		} catch (_) {
+			swal.alert({
+				text: "Delete error",
+			});
+		} finally {
+			setDeleteBusyId("");
+		}
 	};
 
 	const getMoreItems = async () => {
-		if (busy || noMore) return;
-		setBusy(true);
+		if (moreBusy || noMore) return;
+		setMoreBusy(true);
 		const offset = displayItems.length;
 		const res = await getExpenseList({
 			offset,
@@ -48,7 +55,7 @@ export function ExpenseList({
 		});
 		setDisplayItems([...displayItems, ...res.items]);
 		setNoMore(res.items.length < EXPENSE_LIST_LIMIT);
-		setBusy(false);
+		setMoreBusy(false);
 	};
 
 	return (
@@ -97,29 +104,28 @@ export function ExpenseList({
 						)}
 
 						{/* 右端に削除ボタンを設置 */}
-						<form
-							action={deleteAction}
-							className="-translate-y-1/2 absolute top-1/2 right-2"
-						>
-							<input type="hidden" name="id" defaultValue={item.expenses.id} />
+						<div className="-translate-y-1/2 absolute top-1/2 right-2">
 							<button
-								type="submit"
+								type="button"
 								className="btn btn-error btn-outline btn-xs"
+								onClick={() => deleteAction(item.expenses.id)}
+								disabled={item.expenses.id === deleteBusyId}
 							>
 								Delete
 							</button>
-						</form>
+						</div>
 					</div>
 				</li>
 			))}
+			{/* もっと見るボタン */}
 			<li className="mt-4">
 				<button
 					type="button"
 					className="btn btn-ghost btn-block"
 					onClick={getMoreItems}
-					disabled={noMore || busy}
+					disabled={noMore || moreBusy}
 				>
-					{noMore ? "No more" : busy ? "Loading..." : "More"}
+					{noMore ? "No more" : moreBusy ? "Loading..." : "More"}
 				</button>
 			</li>
 		</ul>

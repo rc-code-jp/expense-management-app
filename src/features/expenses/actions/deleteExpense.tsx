@@ -3,30 +3,21 @@
 import { auth } from "@/auth";
 import { db } from "@/database/db";
 import { expenses } from "@/database/schema";
-import type { FormActionState } from "@/features/expenses/actionState/formActionState";
 import { and, eq } from "drizzle-orm";
-import { revalidatePath } from "next/cache";
 
-export async function deleteExpense(
-	_: FormActionState,
-	data: FormData,
-): Promise<FormActionState> {
-	const body = {
-		id: data.get("id") as string,
-	};
-
+export async function deleteExpense(expenseId: string): Promise<{
+	message: string;
+}> {
 	const session = await auth();
 	if (!session) {
-		return { message: "Not Authenticated" };
+		return Promise.reject({ message: "Not Authenticated" });
 	}
 
 	const user = session.user;
 
 	await db
 		.delete(expenses)
-		.where(and(eq(expenses.userId, user.id), eq(expenses.id, body.id)));
+		.where(and(eq(expenses.userId, user.id), eq(expenses.id, expenseId)));
 
-	revalidatePath("/items");
-
-	return { message: "" };
+	return Promise.resolve({ message: "" });
 }

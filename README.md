@@ -27,6 +27,14 @@ docker compose up -d
 
 [PgAdmin](http://localhost:8080)
 
+### フロントエンドを起動
+
+```
+npm run dev
+```
+
+[localhost:3000](http://localhost:3000)
+
 ### Schema.tsからマイグレーションファイルを作成
 
 ```

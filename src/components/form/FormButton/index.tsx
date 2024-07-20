@@ -7,10 +7,12 @@ export function FormButton({
 	type = "submit",
 	children,
 	buttonClassName = "primary",
+	disabled,
 }: {
 	type?: "submit" | "button";
 	children: React.ReactNode;
 	buttonClassName?: ClassValue;
+	disabled?: boolean;
 }) {
 	const { pending } = useFormStatus();
 
@@ -19,7 +21,7 @@ export function FormButton({
 			<button
 				type={type}
 				className={clsx("btn btn-wide shadow-md", buttonClassName)}
-				disabled={pending}
+				disabled={disabled || pending}
 			>
 				{pending ? <span className="loading loading-spinner" /> : children}
 			</button>

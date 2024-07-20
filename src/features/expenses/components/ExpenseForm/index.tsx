@@ -12,6 +12,7 @@ import { formActionState } from "@/features/expenses/actionState/formActionState
 import { saveExpense } from "@/features/expenses/actions/saveExpense";
 import { swal } from "@/lib/sweetalert";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useFormState } from "react-dom";
 import { deleteExpense } from "../../actions/deleteExpense";
 
@@ -29,15 +30,24 @@ export function ExpenseForm({
 
 	const [formState, formDispatch] = useFormState(saveExpense, formActionState);
 
-	const [, deleteDispatch] = useFormState(deleteExpense, formActionState);
+	const [deleteBusy, setDeleteBusy] = useState(false);
 
-	const deleteAction = async (formData: FormData) => {
-		const { isConfirmed } = await swal.confirm({
-			text: "Are you sure?",
-		});
-		if (!isConfirmed) return;
-		deleteDispatch(formData);
-		router.push("/items");
+	const deleteAction = async (event: React.FormEvent) => {
+		if (deleteBusy) return;
+		try {
+			event.preventDefault();
+			const { isConfirmed } = await swal.confirm({
+				text: "Are you sure?",
+			});
+			if (!isConfirmed) return;
+			setDeleteBusy(true);
+			await deleteExpense(item.id);
+			router.push("/items");
+		} catch (_) {
+			swal.alert({ text: "Failed to delete item" });
+		} finally {
+			setDeleteBusy(false);
+		}
 	};
 
 	return (
@@ -83,14 +93,20 @@ export function ExpenseForm({
 					/>
 				</div>
 				<div className="mt-6">
-					<FormButton>{item.id ? "Update" : "Save"}</FormButton>
+					<FormButton disabled={deleteBusy}>
+						{item.id ? "Update" : "Save"}
+					</FormButton>
 				</div>
 			</form>
 			{item.id && (
-				<form action={deleteAction} className="mt-8 block">
+				<form onSubmit={deleteAction} className="mt-8 block">
 					<input type="hidden" name="id" defaultValue={item.id ?? ""} />
-					<FormButton type="submit" buttonClassName="text-error btn-ghost">
-						Delete Item
+					<FormButton
+						type="submit"
+						buttonClassName="text-error btn-ghost"
+						disabled={deleteBusy}
+					>
+						{deleteBusy ? "Deleting..." : "Delete Item"}
 					</FormButton>
 				</form>
 			)}

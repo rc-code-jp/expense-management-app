@@ -16,7 +16,7 @@ export function CategoryListItem({
 }: {
 	item: Item;
 }) {
-	const [_formState, formDispatch] = useFormState(
+	const [, deleteDispatch] = useFormState(
 		deleteExpenseCategory,
 		formActionState,
 	);
@@ -26,7 +26,7 @@ export function CategoryListItem({
 			text: "Are you sure?",
 		});
 		if (!isConfirmed) return;
-		formDispatch(formData);
+		deleteDispatch(formData);
 	};
 
 	const { attributes, listeners, setNodeRef, transform, transition } =
