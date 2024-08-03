@@ -16,7 +16,7 @@ npm install
 ```
 
 ```
-cp ./env/.env.example .env.local
+cp ./env/.env.local.example .env.local
 ```
 
 ### ローカルのデータベースを起動
@@ -45,4 +45,16 @@ npx drizzle-kit generate
 
 ```
 npx drizzle-kit migrate
+```
+
+## E2E TEST
+
+### ローカルテスト
+
+```
+npx playwright test
+```
+
+```
+npx playwright test --ui
 ```
