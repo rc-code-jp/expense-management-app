@@ -118,7 +118,7 @@ export function ExpenseList({
 				</li>
 			))}
 			{/* もっと見るボタン */}
-			<li className="mt-4">
+			<li className="my-4">
 				<button
 					type="button"
 					className="btn btn-ghost btn-block"
