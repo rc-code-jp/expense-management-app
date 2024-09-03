@@ -7,13 +7,14 @@ import { CategoryFilter } from "@/features/expenses/components/CategoryFilter";
 import { ExpenseCalendar } from "@/features/expenses/components/ExpenseCalendar";
 import { DATE_FORMAT, dateFns, getTimezoneNow } from "@/lib/dateFns";
 import { and, between, eq } from "drizzle-orm";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function Page({
 	searchParams,
 }: {
 	searchParams: {
-		yearMonth?: string; // y-m
+		ym?: string; // y-m
 		category?: string; // expenseCategories.id
 	};
 }) {
@@ -27,7 +28,7 @@ export default async function Page({
 	const date = getTimezoneNow();
 	date.setDate(1);
 
-	const ym = searchParams.yearMonth?.split("-").map(Number);
+	const ym = searchParams.ym?.split("-").map(Number);
 	if (ym?.at(0) && ym?.at(1)) {
 		date.setFullYear(ym[0]);
 		date.setMonth(ym[1] - 1);
@@ -61,10 +62,22 @@ export default async function Page({
 	// カテゴリー取得
 	const categories = await getExpenseCategoryList();
 
+	// 遷移用に前月と次月のリンクを生成
+	const prevYm = dateFns.format(dateFns.addMonths(date, -1), "yyyy-M");
+	const nextYm = dateFns.format(dateFns.addMonths(date, 1), "yyyy-M");
+
 	return (
 		<div>
 			<PageTitle>
-				{year}-{month}
+				<Link href={`/calendar?ym=${prevYm}`} className="-mt-1 font-normal">
+					&lt;
+				</Link>
+				<span className="mx-3">
+					{year}-{month}
+				</span>
+				<Link href={`/calendar?ym=${nextYm}`} className="-mt-1 font-normal">
+					&gt;
+				</Link>
 			</PageTitle>
 			<div className="mb-2 flex flex-nowrap items-center justify-between pl-3">
 				<p>Total: {total.toLocaleString()}</p>
