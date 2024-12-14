@@ -25,6 +25,7 @@ export const viewport: Viewport = {
 	maximumScale: 1,
 	userScalable: false,
 	viewportFit: "cover", // iPhoneでSafeAreaにも被せる
+	themeColor: "#2E282A",
 };
 
 export default function RootLayout({
