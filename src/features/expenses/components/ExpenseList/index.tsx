@@ -81,7 +81,7 @@ export function ExpenseList({
 							<Link
 								type="button"
 								className="btn btn-primary btn-outline btn-xs"
-								href={`/expenses/${item.expenses.id}`}
+								href={`/items/${item.expenses.id}`}
 							>
 								Edit
 							</Link>
