@@ -2,10 +2,8 @@
 
 import type { expenseCategories, expenses } from "@/database/schema";
 import { dateFns } from "@/lib/dateFns";
-import { swal } from "@/lib/sweetalert";
 import Link from "next/link";
 import { useState } from "react";
-import { deleteExpense } from "../../actions/deleteExpense";
 import getExpenseList from "../../actions/getExpenseList";
 import { EXPENSE_LIST_LIMIT } from "../../utils/expenseList";
 
@@ -24,25 +22,6 @@ export function ExpenseList({
 	const [displayItems, setDisplayItems] = useState<Item[]>(items);
 	const [noMore, setNoMore] = useState(items.length < EXPENSE_LIST_LIMIT);
 	const [moreBusy, setMoreBusy] = useState(false);
-	const [deleteBusyId, setDeleteBusyId] = useState("");
-
-	const deleteAction = async (id: string) => {
-		try {
-			const { isConfirmed } = await swal.confirm({
-				text: "Are you sure?",
-			});
-			if (!isConfirmed) return;
-			setDeleteBusyId(id);
-			await deleteExpense(id);
-			setDisplayItems(() => displayItems.filter((v) => v.expenses.id !== id));
-		} catch (_) {
-			swal.alert({
-				text: "Delete error",
-			});
-		} finally {
-			setDeleteBusyId("");
-		}
-	};
 
 	const getMoreItems = async () => {
 		if (moreBusy || noMore) return;
@@ -63,26 +42,20 @@ export function ExpenseList({
 			{displayItems.map((item) => (
 				<li key={item.expenses.id} style={{ marginTop: 10 }}>
 					<div className="relative size-full rounded-md border border-primary/5 p-4 shadow-md hover:opacity-50">
-						<Link
-							prefetch={false}
-							href={`/items/${item.expenses.id}`}
-							className="block size-full"
+						<div className="font-bold text-xs">
+							{dateFns.format(new Date(item.expenses.date), "yyyy-MM-dd E")}
+						</div>
+						<div className="mt-1 font-bold text-md">
+							{item.expenses.amount.toLocaleString()}
+						</div>
+						<p
+							className="mt-1 text-xs"
+							style={{
+								color: item.expenseCategories.color ?? undefined,
+							}}
 						>
-							<div className="font-bold text-xs">
-								{dateFns.format(new Date(item.expenses.date), "yyyy-MM-dd E")}
-							</div>
-							<div className="mt-1 font-bold text-md">
-								{item.expenses.amount.toLocaleString()}
-							</div>
-							<p
-								className="mt-1 text-xs"
-								style={{
-									color: item.expenseCategories.color ?? undefined,
-								}}
-							>
-								{item.expenseCategories.name}
-							</p>
-						</Link>
+							{item.expenseCategories.name}
+						</p>
 						{/* ノートがある場合はアイコンを表示 */}
 						{item.expenses.note && (
 							<svg
@@ -103,16 +76,15 @@ export function ExpenseList({
 							</svg>
 						)}
 
-						{/* 右端に削除ボタンを設置 */}
+						{/* 右端に編集ボタンを設置 */}
 						<div className="-translate-y-1/2 absolute top-1/2 right-2">
-							<button
+							<Link
 								type="button"
-								className="btn btn-error btn-outline btn-xs"
-								onClick={() => deleteAction(item.expenses.id)}
-								disabled={item.expenses.id === deleteBusyId}
+								className="btn btn-primary btn-outline btn-xs"
+								href={`/expenses/${item.expenses.id}`}
 							>
-								Delete
-							</button>
+								Edit
+							</Link>
 						</div>
 					</div>
 				</li>
