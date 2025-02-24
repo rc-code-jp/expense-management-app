@@ -41,7 +41,10 @@ export function ExpenseList({
 		<ul>
 			{displayItems.map((item) => (
 				<li key={item.expenses.id} style={{ marginTop: 10 }}>
-					<div className="relative size-full rounded-md border border-primary/5 p-4 shadow-md hover:opacity-50">
+					<Link
+						href={`/items/${item.expenses.id}`}
+						className="relative block size-full rounded-md border border-primary/5 p-4 shadow-md hover:opacity-50"
+					>
 						<div className="font-bold text-xs">
 							{dateFns.format(new Date(item.expenses.date), "yyyy-MM-dd E")}
 						</div>
@@ -75,18 +78,7 @@ export function ExpenseList({
 								/>
 							</svg>
 						)}
-
-						{/* 右端に編集ボタンを設置 */}
-						<div className="-translate-y-1/2 absolute top-1/2 right-2">
-							<Link
-								type="button"
-								className="btn btn-primary btn-outline btn-xs"
-								href={`/items/${item.expenses.id}`}
-							>
-								Edit
-							</Link>
-						</div>
-					</div>
+					</Link>
 				</li>
 			))}
 			{/* もっと見るボタン */}
