@@ -1,1 +1,1 @@
-export const APP_NAME = "My Expenditure";
+export const APP_NAME = "支出管理";

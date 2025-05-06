@@ -44,7 +44,7 @@ export default async function Page() {
 
 	return (
 		<div>
-			<PageTitle>New Item</PageTitle>
+			<PageTitle>新規登録</PageTitle>
 			<ExpenseForm categoryList={categoryList} item={item} />
 		</div>
 	);

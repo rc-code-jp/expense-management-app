@@ -9,16 +9,18 @@ import { redirect } from "next/navigation";
 export default async function Page({
 	params,
 }: {
-	params: {
+	params: Promise<{
 		categoryId: string;
-	};
+	}>;
 }) {
 	const session = await auth();
 	if (!session) {
 		return redirect("/auth/login");
 	}
 
-	const isCreateMode = params.categoryId === "create";
+	const p = await params;
+
+	const isCreateMode = p.categoryId === "create";
 
 	const user = session.user;
 
@@ -31,7 +33,7 @@ export default async function Page({
 			.where(
 				and(
 					eq(expenseCategories.userId, user.id),
-					eq(expenseCategories.id, params.categoryId),
+					eq(expenseCategories.id, p.categoryId),
 				),
 			);
 		item = res[0];
@@ -39,7 +41,7 @@ export default async function Page({
 
 	return (
 		<div>
-			<PageTitle>Category</PageTitle>
+			<PageTitle>カテゴリー</PageTitle>
 			<CategoryForm item={item} />
 		</div>
 	);

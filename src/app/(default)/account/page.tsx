@@ -18,7 +18,7 @@ export default async function Page() {
 
 	return (
 		<div>
-			<PageTitle>Account</PageTitle>
+			<PageTitle>アカウント</PageTitle>
 			<div>
 				<ul>
 					<li>
@@ -29,23 +29,25 @@ export default async function Page() {
 								defaultValue={user.monthlyBudget ?? ""}
 							/>
 							<div className="flex">
-								<FormButton>Save Budget</FormButton>
+								<FormButton buttonClassName="btn-primary">
+									予算を保存
+								</FormButton>
 							</div>
 						</form>
 					</li>
 					<li className="mt-6">
 						<div>
-							<FormLabel>Category Setting</FormLabel>
+							<FormLabel>カテゴリー設定</FormLabel>
 							<p className="mt-2 flex">
 								<Link href="/categories" className="btn btn-wide shadow-md">
-									Go Category Setting Page
+									カテゴリー設定ページへ
 								</Link>
 							</p>
 						</div>
 					</li>
 					<li className="mt-8">
 						<div>
-							<FormLabel>Logout</FormLabel>
+							<FormLabel>ログアウト</FormLabel>
 							<p className="mt-2 flex">
 								<LogoutButton />
 							</p>

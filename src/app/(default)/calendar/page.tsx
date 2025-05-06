@@ -13,10 +13,10 @@ import { redirect } from "next/navigation";
 export default async function Page({
 	searchParams,
 }: {
-	searchParams: {
+	searchParams: Promise<{
 		ym?: string; // y-m
 		category?: string; // expenseCategories.id
-	};
+	}>;
 }) {
 	const session = await auth();
 	if (!session) {
@@ -28,7 +28,9 @@ export default async function Page({
 	const date = getTimezoneNow();
 	date.setDate(1);
 
-	const ym = searchParams.ym?.split("-").map(Number);
+	const sp = await searchParams;
+
+	const ym = sp.ym?.split("-").map(Number);
 	if (ym?.at(0) && ym?.at(1)) {
 		date.setFullYear(ym[0]);
 		date.setMonth(ym[1] - 1);
@@ -44,8 +46,8 @@ export default async function Page({
 	];
 
 	// 条件にカテゴリーを追加
-	if (searchParams.category) {
-		where.push(eq(expenses.categoryId, searchParams.category));
+	if (sp.category) {
+		where.push(eq(expenses.categoryId, sp.category));
 	}
 
 	// 取得（集計用なので並び替えない）
@@ -70,21 +72,18 @@ export default async function Page({
 		<div>
 			<PageTitle>
 				<Link href={`/calendar?ym=${prevYm}`} className="-mt-1 font-normal">
-					&lt;
+					&lt;-
 				</Link>
 				<span className="mx-3">
-					{year}-{month}
+					{year}年{month}月
 				</span>
 				<Link href={`/calendar?ym=${nextYm}`} className="-mt-1 font-normal">
-					&gt;
+					-&gt;
 				</Link>
 			</PageTitle>
 			<div className="mb-2 flex flex-nowrap items-center justify-between pl-3">
-				<p>Total: {total.toLocaleString()}</p>
-				<CategoryFilter
-					items={categories}
-					initialValue={searchParams.category}
-				/>
+				<p>合計: {total.toLocaleString()}</p>
+				<CategoryFilter items={categories} initialValue={sp.category} />
 			</div>
 			<ExpenseCalendar items={items} year={year} month={month} />
 		</div>

@@ -6,7 +6,7 @@ import { signOut } from "next-auth/react";
 export function LogoutButton() {
 	const logout = async () => {
 		const { isConfirmed } = await swal.confirm({
-			text: "Are you sure you want to logout?",
+			text: "ログアウトしますか？",
 		});
 		if (isConfirmed) {
 			signOut({ callbackUrl: "/auth/login" });
@@ -17,8 +17,12 @@ export function LogoutButton() {
 	};
 
 	return (
-		<button type="button" onClick={logout} className="btn btn-wide shadow-md">
-			Logout
+		<button
+			type="button"
+			onClick={logout}
+			className="btn btn-wide btn-outline shadow-md"
+		>
+			ログアウト
 		</button>
 	);
 }

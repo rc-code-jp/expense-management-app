@@ -30,7 +30,7 @@ export function CategoryFilter({
 				value={value}
 				onChange={handleChange}
 			>
-				<option value={""}>All Category</option>
+				<option value={""}>すべてのカテゴリー</option>
 				{items.map((item) => (
 					<option key={item.id} value={item.id}>
 						{item.name}

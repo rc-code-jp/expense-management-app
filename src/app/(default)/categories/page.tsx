@@ -16,10 +16,10 @@ export default async function Page() {
 
 	return (
 		<div>
-			<PageTitle>Category</PageTitle>
+			<PageTitle>カテゴリー</PageTitle>
 			<div className="mt-4">
 				<Link href="/categories/create" className="btn btn-block shadow-md">
-					Add Category
+					カテゴリーを追加
 				</Link>
 			</div>
 			<CategoryList items={items} />

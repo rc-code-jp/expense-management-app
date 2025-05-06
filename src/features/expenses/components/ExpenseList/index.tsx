@@ -89,7 +89,7 @@ export function ExpenseList({
 					onClick={getMoreItems}
 					disabled={noMore || moreBusy}
 				>
-					{noMore ? "No more" : moreBusy ? "Loading..." : "More"}
+					{noMore ? "もっと見る" : moreBusy ? "読み込み中..." : "もっと見る"}
 				</button>
 			</li>
 		</ul>

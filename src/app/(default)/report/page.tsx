@@ -86,11 +86,11 @@ export default async function Page() {
 	return (
 		<div>
 			<div className="flex flex-col">
-				<h2 className="p-2 pt-0 font-bold text-lg">Monthly</h2>
+				<h2 className="p-2 pt-0 font-bold text-lg">今月</h2>
 				<ReportItem sum={monthSum} budget={monthlyBudget} />
-				<h2 className="mt-2 p-2 font-bold text-lg">Weekly</h2>
+				<h2 className="mt-2 p-2 font-bold text-lg">今週</h2>
 				<ReportItem sum={weekSum} budget={weeklyBudget} />
-				<h2 className="mt-2 p-2 font-bold text-lg">Today</h2>
+				<h2 className="mt-2 p-2 font-bold text-lg">今日</h2>
 				<ReportItem sum={todaySum} budget={todayBudget} />
 			</div>
 		</div>

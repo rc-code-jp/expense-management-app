@@ -13,7 +13,7 @@ import { saveExpense } from "@/features/expenses/actions/saveExpense";
 import { swal } from "@/lib/sweetalert";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 import { deleteExpense } from "../../actions/deleteExpense";
 
 type CategoryItem = typeof expenseCategories.$inferSelect;
@@ -28,7 +28,10 @@ export function ExpenseForm({
 }) {
 	const router = useRouter();
 
-	const [formState, formDispatch] = useFormState(saveExpense, formActionState);
+	const [formState, formDispatch] = useActionState(
+		saveExpense,
+		formActionState,
+	);
 
 	const [deleteBusy, setDeleteBusy] = useState(false);
 
@@ -37,14 +40,14 @@ export function ExpenseForm({
 		try {
 			event.preventDefault();
 			const { isConfirmed } = await swal.confirm({
-				text: "Are you sure?",
+				text: "削除します、よろしいですか？",
 			});
 			if (!isConfirmed) return;
 			setDeleteBusy(true);
 			await deleteExpense(item.id);
 			router.push("/items");
 		} catch (_) {
-			swal.alert({ text: "Failed to delete item" });
+			swal.alert({ text: "削除に失敗しました" });
 		} finally {
 			setDeleteBusy(false);
 		}
@@ -59,14 +62,14 @@ export function ExpenseForm({
 					<FormText
 						type="tel"
 						name="amount"
-						label="Amount"
+						label="金額"
 						defaultValue={item.amount || ""}
 						required
 					/>
 				</div>
 				<div>
 					<FormSelect
-						label="Category"
+						label="カテゴリー"
 						name="categoryId"
 						required
 						defaultValue={item.categoryId ?? ""}
@@ -79,22 +82,22 @@ export function ExpenseForm({
 				<div className="grid grid-cols-2 gap-2">
 					<FormDate
 						name="date"
-						label="Date"
+						label="日付"
 						defaultValue={item.date ?? ""}
 						required
 					/>
-					<FormTime name="time" label="Time" defaultValue={item.time ?? ""} />
+					<FormTime name="time" label="時間" defaultValue={item.time ?? ""} />
 				</div>
 				<div>
 					<FormTextarea
 						name="note"
-						label="Note"
+						label="メモ"
 						defaultValue={item.note ?? ""}
 					/>
 				</div>
 				<div className="mt-6">
-					<FormButton disabled={deleteBusy}>
-						{item.id ? "Update" : "Save"}
+					<FormButton buttonClassName="btn-primary" disabled={deleteBusy}>
+						{item.id ? "更新" : "保存"}
 					</FormButton>
 				</div>
 			</form>
@@ -106,7 +109,7 @@ export function ExpenseForm({
 						buttonClassName="text-error btn-ghost"
 						disabled={deleteBusy}
 					>
-						{deleteBusy ? "Deleting..." : "Delete Item"}
+						{deleteBusy ? "削除中..." : "削除する"}
 					</FormButton>
 				</form>
 			)}

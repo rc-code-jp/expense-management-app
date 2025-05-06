@@ -5,7 +5,7 @@ import { swal } from "@/lib/sweetalert";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import Link from "next/link";
-import { useFormState } from "react-dom";
+import { useActionState } from "react";
 import { formActionState } from "../../actionState/formActionState";
 import { deleteExpenseCategory } from "../../actions/deleteExpenseCategory";
 
@@ -16,7 +16,7 @@ export function CategoryListItem({
 }: {
 	item: Item;
 }) {
-	const [, deleteDispatch] = useFormState(
+	const [, deleteDispatch] = useActionState(
 		deleteExpenseCategory,
 		formActionState,
 	);

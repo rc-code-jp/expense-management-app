@@ -9,14 +9,16 @@ import { redirect } from "next/navigation";
 export default async function Page({
 	params,
 }: {
-	params: {
+	params: Promise<{
 		expenseId: string;
-	};
+	}>;
 }) {
 	const session = await auth();
 	if (!session) {
 		return redirect("/auth/login");
 	}
+
+	const p = await params;
 
 	const user = session.user;
 
@@ -29,15 +31,13 @@ export default async function Page({
 	const res = await db
 		.select()
 		.from(expenses)
-		.where(
-			and(eq(expenses.userId, user.id), eq(expenses.id, params.expenseId)),
-		);
+		.where(and(eq(expenses.userId, user.id), eq(expenses.id, p.expenseId)));
 
 	const item = res[0];
 
 	return (
 		<div>
-			<PageTitle>Update Item</PageTitle>
+			<PageTitle>編集</PageTitle>
 			<ExpenseForm categoryList={categoryList} item={item} />
 		</div>
 	);
