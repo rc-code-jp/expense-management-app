@@ -10,7 +10,7 @@ env:
 on:
   push:
     branches:
-      - main
+      - main__disabled
 jobs:
   Deploy-Production:
     runs-on: ubuntu-latest
